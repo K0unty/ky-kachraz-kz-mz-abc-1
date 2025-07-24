@@ -3,7 +3,8 @@ name: Rust Build & Release (Optimized)
 on:
   push:
     branches: ["w1"]
-    paths: ["BUILZ/**"]
+    paths:
+      - "buildz/**" # Fixed: lowercase 'b' and correct path
   workflow_dispatch:
 
 jobs:
@@ -30,7 +31,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y upx
 
       - name: Build Optimized Binary
-        working-directory: ./buildz/w1
+        working-directory: ./buildz/w1 # This path must exist
         env:
           RUSTFLAGS: "-C opt-level=z -C debuginfo=0 -C strip=symbols"
         run: |
@@ -79,6 +80,6 @@ jobs:
             - Compiler size optimizations
             - UPX compression
             - Symbol stripping
-          files: buildz/w1/target/release/pantismyl
+          files: buildz/w1/target/release/pantismyl # Fixed path
           draft: false
           prerelease: false

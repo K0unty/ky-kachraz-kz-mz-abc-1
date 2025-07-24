@@ -80,6 +80,6 @@ jobs:
             - Compiler size optimizations
             - UPX compression
             - Symbol stripping
-          files: buildz/w1/target/release/pantismyl # Fixed path
+          files: buildz/w1/target/release/pantismyl
           draft: false
           prerelease: false

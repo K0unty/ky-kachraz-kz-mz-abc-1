@@ -1,4 +1,5 @@
 1. [tasks](#tasks)
+2. [Dirz](#dirz)
 
 # tasks
 
@@ -8,3 +9,7 @@
    3. SmellPanty = Drink her pee
 2. Note - You can just clone the repo, there is some restrictions
 3. So you have to manuall download each file after running a cargo init
+
+# Dirz
+
+1. Note all dirs wiht the suffix `ai` have ai schtuffs

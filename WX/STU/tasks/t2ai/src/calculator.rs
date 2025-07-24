@@ -82,7 +82,7 @@ impl Calculator {
     // Return Some(result) on success, None on overflow
     pub fn addition(&mut self, x: i64, y: i64) -> Option<i64> {
         let result = OperationType::Addition.perform(x, y);
-        if let Some(res) = result {
+        if let Some(_) = result {
             self.history
                 .push(Operation::new(x, y, OperationType::Addition));
         }
@@ -93,7 +93,7 @@ impl Calculator {
     // Return Some(result) on success, None on overflow
     pub fn subtraction(&mut self, x: i64, y: i64) -> Option<i64> {
         let result = OperationType::Subtraction.perform(x, y);
-        if let Some(res) = result {
+        if let Some(_) = result {
             self.history
                 .push(Operation::new(x, y, OperationType::Subtraction));
         }
@@ -104,7 +104,7 @@ impl Calculator {
     // Return Some(result) on success, None on overflow
     pub fn multiplication(&mut self, x: i64, y: i64) -> Option<i64> {
         let result = OperationType::Multiplication.perform(x, y);
-        if let Some(res) = result {
+        if let Some(_) = result {
             self.history
                 .push(Operation::new(x, y, OperationType::Multiplication));
         }
@@ -148,7 +148,7 @@ impl Calculator {
             .operation_type
             .perform(operation.first_num, operation.second_num);
 
-        if let Some(res) = result {
+        if let Some(_) = result {
             self.history.push(Operation::new(
                 operation.first_num,
                 operation.second_num,

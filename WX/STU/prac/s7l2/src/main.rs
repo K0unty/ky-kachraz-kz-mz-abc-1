@@ -5,9 +5,11 @@
 // --- Imports ---
 
 mod utz;
+mod wo1;
 use utz::pswg;
+use wo1::wo1_main;
 
 // --- Function calls ---
 fn main() {
-    pswg("SmellPanty".to_string());
+    wo1_main();
 }

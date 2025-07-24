@@ -16,6 +16,7 @@
 
 # Dirz
 
-|         Dir         |            What            |
-| :-----------------: | :------------------------: |
-| [`tasks`](./tasks/) | Workf or the various tasks |
+|         Dir         |                What                 |
+| :-----------------: | :---------------------------------: |
+| [`tasks`](./tasks/) |     Workf or the various tasks      |
+|  [`prac`](./prac/)  | Following the tutorial for practice |

@@ -10,7 +10,7 @@ minute_task() {
         echo "[$timestamp] Minute task executed " >>time.txt
         ./g
 
-        sleep 100 # Sleep for 60 seconds (1 minute)
+        sleep 200 # Sleep for 60 seconds (1 minute)
     done
 }
 

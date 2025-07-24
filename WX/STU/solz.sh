@@ -89,5 +89,5 @@ mucho_cli() {
 }
 
 # Execute 
-# solna_inst
+solna_inst
 mucho_cli

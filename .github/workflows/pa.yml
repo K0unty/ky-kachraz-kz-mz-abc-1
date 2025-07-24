@@ -1,0 +1,84 @@
+name: Rust Build & Release (Optimized)
+
+on:
+  push:
+    branches: ["w1"]
+    paths: ["BUILZ/**"]
+  workflow_dispatch:
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: rustfmt, clippy
+          override: true
+
+      - name: Install UPX
+        run: sudo apt-get update && sudo apt-get install -y upx
+
+      - name: Build Optimized Binary
+        working-directory: ./buildz/w1
+        env:
+          RUSTFLAGS: "-C opt-level=z -C debuginfo=0 -C strip=symbols"
+        run: |
+          cargo build --release
+          strip target/release/pantismyl
+          upx --best --lzma target/release/pantismyl
+          echo "Binary size: $(du -h target/release/pantismyl | cut -f1)"
+
+      - name: Determine Version Bump
+        id: version
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          VERSION=${LATEST_TAG#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          if [[ "${{ github.event.head_commit.message }}" == *"[major]"* ]]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [[ "${{ github.event.head_commit.message }}" == *"[minor]"* ]]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEXT_TAG="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "next_tag=${NEXT_TAG}" >> $GITHUB_OUTPUT
+
+      - name: Create Git Tag
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git tag ${{ steps.version.outputs.next_tag }}
+          git push origin ${{ steps.version.outputs.next_tag }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.next_tag }}
+          name: "Release ${{ steps.version.outputs.next_tag }}"
+          body: |
+            Optimized release with:
+            - Compiler size optimizations
+            - UPX compression
+            - Symbol stripping
+          files: buildz/w1/target/release/pantismyl
+          draft: false
+          prerelease: false

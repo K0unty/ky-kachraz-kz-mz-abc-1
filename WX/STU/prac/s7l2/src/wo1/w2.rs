@@ -41,3 +41,5 @@ fn brint_struct() {
     println!("Struct User: {:#?}", user1.yellow());
     dbg!(user1);
 }
+
+// Enums

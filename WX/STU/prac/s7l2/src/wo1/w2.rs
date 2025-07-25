@@ -38,6 +38,6 @@ fn brint_struct() {
         email: "stink@snigger.com".to_string(),
         active: true,
     };
-    println!("Struct User: {:#?}", user1);
-    println!("{}", User);
+    println!("Struct User: {:#?}", user1.yellow());
+    dbg!(user1);
 }

@@ -16,7 +16,8 @@ use yansi::Paint;
 pub fn wo2_main() {
     let maint1 = "wo2.rs - Structs and Enums";
     pswg(maint1.to_string());
-    brint_struct();
+    // brint_struct();
+    enum_brint();
 }
 
 // --- Sub functions Call
@@ -43,3 +44,30 @@ fn brint_struct() {
 }
 
 // Enums
+#[derive(Debug)]
+enum IpAddr {
+    V4(u8, u8, u8, u8), // Ipv4 Address
+    V6(String),         // IpV6 Address
+    Unknown,
+}
+
+fn enum_brint() {
+    header("Enum Bring");
+
+    let home = IpAddr::V4(69, 69, 69, 69);
+    let loopback = IpAddr::V6("::1".to_string());
+    let unknown = IpAddr::Unknown;
+
+    println!(
+        "
+Home = {:?},
+Loopback = {:?},
+UnKnown = {:#?}
+    ",
+        home.yellow(),
+        loopback.yellow(),
+        unknown.yellow()
+    );
+}
+
+// Ownership Rules

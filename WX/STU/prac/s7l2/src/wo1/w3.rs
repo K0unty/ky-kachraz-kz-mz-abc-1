@@ -16,7 +16,8 @@ use yansi::Paint;
 pub fn wo3_main() {
     let maint1 = "wo3.rs - Ownerships";
     pswg(maint1.to_string());
-    error1();
+    // error1();
+    ref_bor();
 }
 
 // --- Sub functions Call
@@ -48,7 +49,7 @@ fn ref_bor() {
     }
 
     let s1 = String::from("Sniff");
-    let _len = calculate_length(&s1);
+    let len = calculate_length(&s1);
 
     fn change(s: &mut String) {
         s.push_str(", Pussy");
@@ -56,4 +57,6 @@ fn ref_bor() {
 
     let mut s = String::from("Smell");
     change(&mut s);
+
+    dbg!(s);
 }

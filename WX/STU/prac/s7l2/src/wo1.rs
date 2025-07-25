@@ -12,6 +12,7 @@ use yansi::Paint;
 // --- Main function Call
 
 pub fn wo1_main() {
+    pswg("Wo1 Work:".to_string());
     // lop1()
     // lop2();
     mat1();

@@ -43,7 +43,10 @@ fn ref_bor() {
     header("Referncing and Borrowing");
 
     // fn to calculate length of string
-    fn calculate_length(s: String) -> usize {
+    fn calculate_length(s: &String) -> usize {
         s.len()
     }
+
+    let s1 = String::from("Sniff");
+    let len = calculate_length(&s1);
 }

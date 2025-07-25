@@ -22,7 +22,7 @@ pub fn wo2_main() {
 // --- Sub functions Call
 
 // Struct Definitiont
-
+#[derive(Debug)]
 struct User {
     name: String,
     email: String,
@@ -32,7 +32,9 @@ struct User {
 fn brint_struct() {
     header("Struct User");
     let user1 = User {
-        name: "PantySmeller",
+        name: "PantySmeller".to_string(),
+        email: "stink@snigger.com".to_string(),
+        active: true,
     };
-    println!("Struct User: {}", User);
+    println!("Struct User: {:#?}", user1);
 }

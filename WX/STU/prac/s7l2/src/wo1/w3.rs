@@ -30,5 +30,10 @@ fn error1() {
 
     let s3 = String::from("Smel Farts");
     let s4 = s3;
-    dbg!(s4);
+    // dbg!(&s4);
+    println!("Inside Panty: {}", s4);
 }
+
+/*
+Referencing and borrowing
+*/

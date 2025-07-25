@@ -13,7 +13,8 @@ use yansi::Paint;
 
 pub fn wo1_main() {
     // lop1()
-    lop2();
+    // lop2();
+    mat1();
 }
 
 // --- Sub functions Call
@@ -41,5 +42,16 @@ fn lop2() {
     for n in (0..5).rev() {
         println!("{}", line);
         println!("This: {}", n.blue());
+    }
+}
+
+// Match staement like swith case
+
+fn mat1() {
+    let number = 5;
+
+    match number {
+        1 => println!("{}", "one".green()),
+        _ => println!("{}", number.red()),
     }
 }

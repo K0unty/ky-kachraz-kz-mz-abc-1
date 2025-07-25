@@ -13,9 +13,9 @@ use yansi::Paint;
 
 pub fn wo1_main() {
     pswg("Wo1 Work:".to_string());
-    // lop1()
+    lop1()
     // lop2();
-    mat1();
+    // mat1();
 }
 
 // --- Sub functions Call
@@ -30,6 +30,7 @@ fn lop1() {
     while n > 0 {
         println!("{}", line);
         println!("This: {}", n.blue());
+        dbg!(n);
         n -= 2;
     }
 }

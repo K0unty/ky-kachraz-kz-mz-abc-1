@@ -27,4 +27,8 @@ This function will deliberately show the ownership error
 
 fn error1() {
     header("Ownership Error Test");
+
+    let s3 = String::from("Smel Farts");
+    let s4 = s3;
+    dbg!(s4);
 }

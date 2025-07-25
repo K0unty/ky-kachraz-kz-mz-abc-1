@@ -9,9 +9,10 @@ use yansi::Paint;
 
 pub fn wo1_main() {
     pswg("Wo1 Work:".to_string());
-    lop1()
+    // lop1()
     // lop2();
     // mat1();
+    addz();
 }
 
 // --- Sub functions Call
@@ -56,4 +57,18 @@ fn mat1() {
         2 => println!("Number Matched - {}", "Two".blue()),
         _ => println!("{}", "No Matchnumber".red()),
     }
+}
+
+// Fucntions test
+
+fn addz() -> i32 {
+    header("Addz Function Test");
+
+    let a = 69;
+    let b = 420;
+    let c = a + b;
+
+    println!("Addz = {} + {} = {}", a, b, c.green());
+
+    dbg!(c)
 }

@@ -12,7 +12,7 @@ pub fn wo1_main() {
     // lop1()
     // lop2();
     // mat1();
-    addz();
+    // addz();
 }
 
 // --- Sub functions Call
@@ -71,4 +71,13 @@ fn addz() -> i32 {
     println!("Addz = {} + {} = {}", a, b, c.green());
 
     dbg!(c)
+}
+
+// Functions returning value without semicolon
+
+fn cube(n: i32) -> i32 {
+    n * n * n
+}
+fn cubeprint() {
+    header("Cube Print")
 }

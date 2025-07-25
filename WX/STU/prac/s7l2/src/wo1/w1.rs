@@ -1,3 +1,7 @@
+// ----------------------------------------------------
+// w1 Primitives
+// ----------------------------------------------------
+
 // --- Attributes ---
 #![allow(dead_code)]
 
@@ -76,7 +80,7 @@ fn addz() -> i32 {
 
 // Functions returning value without semicolon
 
-// If a value is bein returned, you need to explain that also
+// If a value is bein returned, you need to explain that alsoTi
 fn cube(n: i32) -> i32 {
     n * n * n
 }

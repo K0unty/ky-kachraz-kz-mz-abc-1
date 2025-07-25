@@ -31,6 +31,8 @@ struct User {
 
 fn brint_struct() {
     header("Struct User");
+
+    // Note you have to define the stuct like
     let user1 = User {
         name: "PantySmeller".to_string(),
         email: "stink@snigger.com".to_string(),

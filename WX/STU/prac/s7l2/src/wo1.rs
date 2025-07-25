@@ -52,6 +52,7 @@ fn mat1() {
     header("Match Tests");
 
     let number = 2;
+    dbg!(number);
 
     match number {
         1 => println!("{}", "one".green()),

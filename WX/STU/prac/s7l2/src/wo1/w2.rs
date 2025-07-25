@@ -39,4 +39,5 @@ fn brint_struct() {
         active: true,
     };
     println!("Struct User: {:#?}", user1);
+    println!("{}", User);
 }

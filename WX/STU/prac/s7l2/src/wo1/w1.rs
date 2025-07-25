@@ -13,6 +13,7 @@ pub fn wo1_main() {
     // lop2();
     // mat1();
     // addz();
+    cubeprint();
 }
 
 // --- Sub functions Call
@@ -79,5 +80,7 @@ fn cube(n: i32) -> i32 {
     n * n * n
 }
 fn cubeprint() {
-    header("Cube Print")
+    header("Cube Print");
+    let cube1 = cube(99);
+    dbg!(cube1);
 }

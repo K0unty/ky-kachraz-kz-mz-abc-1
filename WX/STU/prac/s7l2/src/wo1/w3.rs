@@ -45,7 +45,7 @@ fn ref_bor() {
 
     // fn to calculate length of string
     fn calculate_length(s: &String) -> usize {
-        s.len()
+        s.len() // length of the string
     }
 
     let s1 = String::from("Sniff");

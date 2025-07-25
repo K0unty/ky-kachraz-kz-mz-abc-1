@@ -7,9 +7,9 @@
 mod utz;
 mod wo1;
 
-use wo1::w3::wo2_main;
+use wo1::w3::wo3_main;
 
 // --- Function calls ---
 fn main() {
-    wo2_main();
+    wo3_main();
 }

@@ -29,3 +29,9 @@ struct Article {
     heading: String,
     content: String,
 }
+
+impl Summary for Article {
+    fn summarize(&self) -> String {
+        format!("{}..", &self.content[0..50])
+    }
+}

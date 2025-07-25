@@ -6,7 +6,7 @@
 #![allow(dead_code)]
 
 // --- Imports ---
-use crate::utz::pswg;
+use crate::utz::{header, pswg};
 use yansi::Paint;
 
 // --- Main function Call
@@ -48,10 +48,13 @@ fn lop2() {
 // Match staement like swith case
 
 fn mat1() {
-    let number = 5;
+    header("Match Tests");
+
+    let number = 2;
 
     match number {
         1 => println!("{}", "one".green()),
-        _ => println!("{}", number.red()),
+        2 => println!("Number Matched - {}", "Two".blue()),
+        _ => println!("{}", "No Matchnumber".red()),
     }
 }

@@ -4,6 +4,7 @@
 
 // --- Attributes ---
 #![allow(dead_code)]
+#![allow(unused_imports)]
 
 // --- Imports ---
 use crate::utz::{header, pswg};

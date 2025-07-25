@@ -37,3 +37,13 @@ fn error1() {
 /*
 Referencing and borrowing
 */
+
+// Fn to calculate length of string
+fn ref_bor() {
+    header("Referncing and Borrowing");
+
+    // fn to calculate length of string
+    fn calculate_length(s: String) -> usize {
+        s.len()
+    }
+}

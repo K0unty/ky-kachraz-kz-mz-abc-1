@@ -16,6 +16,15 @@ use yansi::Paint;
 pub fn wo3_main() {
     let maint1 = "wo3.rs - Ownerships";
     pswg(maint1.to_string());
+    error1();
 }
 
 // --- Sub functions Call
+
+/*
+This function will deliberately show the ownership error
+*/
+
+fn error1() {
+    header("Ownership Error Test");
+}

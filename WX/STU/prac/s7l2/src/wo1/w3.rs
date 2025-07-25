@@ -48,5 +48,12 @@ fn ref_bor() {
     }
 
     let s1 = String::from("Sniff");
-    let len = calculate_length(&s1);
+    let _len = calculate_length(&s1);
+
+    fn change(s: &mut String) {
+        s.push_str(", Pussy");
+    }
+
+    let mut s = String::from("Smell");
+    change(&mut s);
 }

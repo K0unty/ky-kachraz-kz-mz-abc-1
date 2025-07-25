@@ -6,10 +6,10 @@
 
 mod utz;
 mod wo1;
-use wo1::w1::wo1_main;
-mod wo2;
+
+use wo1::w2::wo2_main;
 
 // --- Function calls ---
 fn main() {
-    wo1_main();
+    wo2_main();
 }

@@ -6,9 +6,7 @@
 
 mod utz;
 mod wo1;
-// use utz::pswg;
-
-use wo1::wo1_main;
+use wo1::w1::wo1_main;
 
 // --- Function calls ---
 fn main() {

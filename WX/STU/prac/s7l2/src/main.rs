@@ -13,9 +13,3 @@ use wo1::w4::wo4_main;
 fn main() {
     wo4_main();
 }
-
-// ---Sub Functions---
-
-trait Summay {
-    fn summarize(&self) -> String;
-}

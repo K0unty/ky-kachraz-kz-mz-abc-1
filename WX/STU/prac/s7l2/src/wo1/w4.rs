@@ -18,4 +18,14 @@ pub fn wo4_main() {
     pswg(maint1.to_string());
 }
 
-// --- Sub functions Call
+// --- SubF ---
+
+// Defining the trait
+trait Summary {
+    fn summarize(&self) -> String;
+}
+
+struct Article {
+    heading: String,
+    content: String,
+}

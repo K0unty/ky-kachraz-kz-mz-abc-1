@@ -15,3 +15,9 @@ fn main() {
 }
 
 // ---Sub Functions---
+
+/*
+Life-Times test 
+*/
+
+fn longest<'a>

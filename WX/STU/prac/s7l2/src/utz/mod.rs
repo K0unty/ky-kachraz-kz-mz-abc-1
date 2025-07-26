@@ -4,9 +4,7 @@ Utils folder
 // main utiities file
 #![allow(dead_code)]
 
-use std::collections::btree_map::Values;
-
-use cfonts::{BgColors, Fonts, Options, Rgb, say};
+use cfonts::{BgColors, Fonts, Options, say};
 use yansi::Paint;
 
 pub fn pswg(text: String) {

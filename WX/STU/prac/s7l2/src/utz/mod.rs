@@ -24,7 +24,7 @@ pub fn pswg(text: String) {
         independent_gradient: false,
         transition_gradient: true,
         spaceless: true,
-        background: BgColors::Rgb((13, 1, 1)), // Background color
+        background: BgColors::Rgb(13, 1, 1), // Background color
         ..Options::default()
     });
 }

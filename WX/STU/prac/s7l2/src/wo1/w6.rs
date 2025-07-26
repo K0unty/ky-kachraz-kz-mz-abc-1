@@ -15,6 +15,7 @@ use yansi::Paint;
 pub fn wo6_main() {
     let maint1 = "wo5.rs - Errors";
     pswg(maint1);
+    divide_func();
 }
 
 // --- Sub Functions

@@ -32,12 +32,12 @@ cargobloat() {
     echo -e "[?] Biggest functions in binary ${NC}"
     eval "co1"
     echo -e "${CYAN}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${NC}"
+    
     echo -e "${GREEN} Executing ${co2}"
     echo -e "[?] Biggest Crates ${NC}"
     eval "co2"
     echo -e "${CYAN}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${NC}"    
 }
 
-
 # Exeution
-bacon_run
+cargobloat

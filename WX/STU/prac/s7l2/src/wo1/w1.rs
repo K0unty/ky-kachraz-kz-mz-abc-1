@@ -12,7 +12,7 @@ use yansi::Paint;
 // --- Main function Call
 
 pub fn wo1_main() {
-    pswg("Wo1 Work:".to_string());
+    pswg("Wo1 Work:");
     // lop1()
     // lop2();
     // mat1();
@@ -24,7 +24,7 @@ pub fn wo1_main() {
 
 fn lop1() {
     let t1 = "Lopsa Tests";
-    pswg(t1.to_string());
+    pswg(t1);
 
     // Loops test
     let line = "~".repeat(20);
@@ -39,7 +39,7 @@ fn lop1() {
 
 fn lop2() {
     let t2 = "Lopsa Tests 2";
-    pswg(t2.to_string());
+    pswg(t2);
 
     // Loops test
     let line = "~".repeat(20);

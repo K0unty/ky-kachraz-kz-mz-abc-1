@@ -14,7 +14,7 @@ use yansi::Paint;
 
 pub fn wo5_main() {
     let maint1 = "wo4.rs - Traits";
-    pswg(maint1.to_string());
+    pswg(maint1);
 }
 
 // --- Sub Functions ---

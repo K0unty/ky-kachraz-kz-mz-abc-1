@@ -7,7 +7,7 @@ Utils folder
 use cfonts::{BgColors, Fonts, Options, Rgb, say};
 use yansi::Paint;
 
-pub fn pswg(text: String) {
+pub fn pswg(text: &str) {
     // Define the fire gradient colors
     let synth = vec![
         String::from("#FF00FF"), // Neon Pink
@@ -18,7 +18,7 @@ pub fn pswg(text: String) {
     ];
 
     say(Options {
-        text,
+        text: text.to_string(),
         font: Fonts::FontConsole, // Change the style here
         gradient: synth,
         independent_gradient: false,

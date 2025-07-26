@@ -12,29 +12,39 @@ use yansi::Paint;
 
 // --- Main function Call
 
-pub fn wo5_main() {
-    let maint1 = "wo4.rs - Traits";
-    pswg(maint1.to_string());
+pub fn wo6_main() {
+    let maint1 = "wo5.rs - Errors";
+    pswg(maint1);
 }
 
-// --- Sub Functions ---
-
-// ---Sub Functions---
+// --- Sub Functions
 
 /*
-Life-Times test
+Errors being defined with traits and structs
 */
 
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() { x } else { y }
+fn divide(a: f64, b: f64) -> Result<f64, String> {
+    if b == 0.0 {
+        Err(String::from("Cannot divide by zero"))
+    } else {
+        Ok(a / b)
+    }
 }
 
-fn lft() {
-    let string1 = String::from(" Long String is Panty");
-    let result;
-    {
-        let string2 = String::from("Short");
-        result = longest(string1.as_str(), string2.as_str());
-        println!("Longest String is: {}", result);
+fn divide_func() {
+    header("Division Function with Error Handling");
+
+    // Success case
+    let result1 = divide(10.0, 2.0);
+    match result1 {
+        Ok(value) => println!("Result: {}", value), // Prints: Result: 5.0
+        Err(error) => println!("Error: {}", error),
+    }
+
+    // Error case
+    let result2 = divide(10.0, 0.0);
+    match result2 {
+        Ok(value) => println!("Result: {}", value),
+        Err(error) => println!("Error: {}", error), // Prints: Error: Cannot divide by zero
     }
 }

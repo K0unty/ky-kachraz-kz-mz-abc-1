@@ -15,7 +15,7 @@ use yansi::Paint;
 
 pub fn wo2_main() {
     let maint1 = "wo2.rs - Structs and Enums";
-    pswg(maint1.to_string());
+    pswg(maint1);
     // brint_struct();
     enum_brint();
 }

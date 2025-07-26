@@ -28,6 +28,7 @@ let string = String::from(" Long String is Panty");
 let result;
 {
     let sring2 = String::from("Short");
+    result = longest(string1.as_str(), string2.as_str());
 }
 
 

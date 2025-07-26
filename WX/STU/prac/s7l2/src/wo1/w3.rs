@@ -16,7 +16,7 @@ use yansi::Paint;
 
 pub fn wo3_main() {
     let maint1 = "wo3.rs - Ownerships";
-    pswg(maint1.to_string());
+    pswg(maint1);
     // error1();
     ref_bor();
 }

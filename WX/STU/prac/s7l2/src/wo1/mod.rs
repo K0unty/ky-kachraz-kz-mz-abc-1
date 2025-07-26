@@ -5,5 +5,6 @@
 pub mod w1;
 pub mod w2;
 pub mod w3;
-pub mod w4;
-pub mod w5;
+pub mod w4; // Enums and Structs
+pub mod w5; // Life times test
+pub mod w6; // Error Handling

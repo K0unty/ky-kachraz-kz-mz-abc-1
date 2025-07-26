@@ -4,7 +4,7 @@ Utils folder
 // main utiities file
 #![allow(dead_code)]
 
-use cfonts::{BgColors, Fonts, Options, say};
+use cfonts::{BgColors, Fonts, Options, Rgb, say};
 use yansi::Paint;
 
 pub fn pswg(text: String) {
@@ -24,7 +24,7 @@ pub fn pswg(text: String) {
         independent_gradient: false,
         transition_gradient: true,
         spaceless: true,
-        background: BgColors::Black, // Background color
+        background: BgColors::Rgb((13, 1, 1)), // Background color
         ..Options::default()
     });
 }

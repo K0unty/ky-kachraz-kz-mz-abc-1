@@ -30,6 +30,10 @@ struct Article {
     content: String,
 }
 
+/*
+impl <Trait> for <Struct>
+- This is the way to implement a trait
+*/
 impl Summary for Article {
     fn summarize(&self) -> String {
         format!("{}..", &self.content[0..50])

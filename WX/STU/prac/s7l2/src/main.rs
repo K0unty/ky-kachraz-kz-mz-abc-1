@@ -25,4 +25,9 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 
 let string = String::from(" Long String is Panty");
+let result;
+{
+    let sring2 = String::from("Short");
+}
+
 

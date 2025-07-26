@@ -24,8 +24,18 @@ hea1() {
 # Using cargo bloat to check for binary size 
 cargobloat() {
     hea1 "Checking binary size with cargo bloat"
+    
     co1="cargo bloat --release -n 10"
     co2="cargo bloat --release --crates"
+
+    echo -e "${GREEN} Executing ${co1}"
+    echo -e "[?] Biggest functions in binary ${NC}"
+    eval "co1"
+    echo -e "${CYAN}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${NC}"
+    echo -e "${GREEN} Executing ${co2}"
+    echo -e "[?] Biggest Crates ${NC}"
+    eval "co2"
+    echo -e "${CYAN}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${NC}"    
 }
 
 

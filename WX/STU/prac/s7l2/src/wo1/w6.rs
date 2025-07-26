@@ -15,7 +15,7 @@ use yansi::Paint;
 pub fn wo6_main() {
     let maint1 = "wo5.rs - Errors";
     pswg(maint1);
-    find_char(s, c);
+    find_char_func();
 }
 
 // --- Sub Functions

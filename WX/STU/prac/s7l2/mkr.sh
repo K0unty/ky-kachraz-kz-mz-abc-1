@@ -1,5 +1,6 @@
 #!/usr/bin/bash
-# This bash srcript is for installing the KL docker image here
+# Commands for binary related
+
 clear
 
 # Colors
@@ -20,12 +21,13 @@ hea1() {
     echo -e "${CYAN}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${NC}"
 }
 
-# Command to run
-bacon_run() {
-    hea1 "Running bacon"
-    CO1="bacon run -- -q"
-    eval "$CO1"
+# Using cargo bloat to check for binary size 
+cargobloat() {
+    hea1 "Checking binary size with cargo bloat"
+    co1="cargo bloat --release -n 10"
+    co2="cargo bloat --release --crates"
 }
+
 
 # Exeution
 bacon_run

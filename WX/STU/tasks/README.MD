@@ -1,5 +1,6 @@
 1. [tasks](#tasks)
 2. [Dirz](#dirz)
+3. [Important point installing Anchor](#important-point-installing-anchor)
 
 # tasks
 
@@ -13,3 +14,11 @@
 # Dirz
 
 1. Note all dirs wiht the suffix `ai` have ai schtuffs
+
+# Important point installing Anchor
+
+```fish
+set -Ux fish_user_paths $HOME/.avm/bin $fish_user_paths
+```
+
+- add this line to get it in on the path

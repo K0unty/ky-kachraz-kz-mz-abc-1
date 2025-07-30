@@ -19,11 +19,41 @@ use crate::events::DepositEvent;
 
 #[derive(Accounts)]
 pub struct Deposit<'info> {
-    // TODO: Add required accounts and constraints
-    pub placeholder: Signer<'info>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    #[account(
+        mut,
+        seeds = [b"vault", user.key().as_ref()],
+        bump
+    )]
+    pub vault: Account<'info, Vault>,
+    pub system_program: Program<'info, System>,
 }
 
 pub fn _deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
-    // TODO: Implement deposit functionality
-    todo!()
+    require!(amount > 0, VaultError::InvalidAmount);
+    require!(!ctx.accounts.vault.locked, VaultError::VaultLocked);
+
+    let transfer_instruction = transfer(
+        &ctx.accounts.user.key(),
+        &ctx.accounts.vault.key(),
+        amount,
+    );
+
+    invoke(
+        &transfer_instruction,
+        &[
+            ctx.accounts.user.to_account_info(),
+            ctx.accounts.vault.to_account_info(),
+            ctx.accounts.system_program.to_account_info(),
+        ],
+    )?;
+
+    emit!(DepositEvent {
+        user: ctx.accounts.user.key(),
+        vault: ctx.accounts.vault.key(),
+        amount,
+    });
+
+    Ok(())
 }

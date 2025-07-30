@@ -15,11 +15,25 @@ use crate::events::ToggleLockEvent;
 
 #[derive(Accounts)]
 pub struct ToggleLock<'info> {
-    // TODO: Add required accounts and constraints
-    pub placeholder: Signer<'info>,
+    #[account(mut)]
+    pub vault_authority: Signer<'info>,
+    #[account(
+        mut,
+        seeds = [b"vault", vault_authority.key().as_ref()],
+        bump,
+        has_one = vault_authority
+    )]
+    pub vault: Account<'info, Vault>,
 }
 
 pub fn _toggle_lock(ctx: Context<ToggleLock>) -> Result<()> {
-    // TODO: Implement toggle lock functionality
-    todo!()
+    ctx.accounts.vault.locked = !ctx.accounts.vault.locked;
+
+    emit!(ToggleLockEvent {
+        vault_authority: ctx.accounts.vault_authority.key(),
+        vault: ctx.accounts.vault.key(),
+        locked: ctx.accounts.vault.locked,
+    });
+
+    Ok(())
 }

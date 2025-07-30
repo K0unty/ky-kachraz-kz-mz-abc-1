@@ -1,6 +1,7 @@
 1. [STU](#stu)
 2. [Linx](#linx)
 3. [Dirz](#dirz)
+4. [Step to download the tasks](#step-to-download-the-tasks)
 
 # STU
 
@@ -20,3 +21,9 @@
 | :-----------------: | :---------------------------------: |
 | [`tasks`](./tasks/) |     Workf or the various tasks      |
 |  [`prac`](./prac/)  | Following the tutorial for practice |
+
+# Step to download the tasks
+
+1. Step1 - Clone the repo first
+2. Step2 - Open it in codespaces
+3. Step3 - Now you can compress and do what you want

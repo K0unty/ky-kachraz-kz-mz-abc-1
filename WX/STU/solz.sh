@@ -88,6 +88,30 @@ mucho_cli() {
     echo -e "${GREEN}***** Mucho CLI Installation Completed *****${NC}"
 }
 
+ # Anchor Install 
+anchor_install() {
+    hea1 "Anhcor Install"
+    co1="sudo apt-get install -y \
+    build-essential \
+    pkg-config \
+    libudev-dev llvm libclang-dev \
+    protobuf-compiler libssl-dev"
+    co2="cargo install --git https://github.com/coral-xyz/anchor avm --force"
+    co3="avm install latest && avm use latest"
+    co4="anchor --version"
+    echo -e "--- Executing ${co1} ---"
+    eval "$co1"
+    echo -e "--- Executing ${co2} ---"
+    eval "$co2"
+    echo -e "--- Executing ${co3} ---"
+    eval "$co3"
+    echo -e "--- Executing ${co4} ---"
+    eval "$co4"
+    echo -e "${GREEN}***** Mucho CLI Installation Completed *****${NC}"
+}
+
+
 # Execute 
 solna_inst
 mucho_cli
+anchor_install

@@ -5,7 +5,7 @@ Welcome to **Task 3** of the **School of Solana Season 7**.
 
 ## 📚Task 3
 In the previous tasks, you were introduced to Solana basics and Rust. The goal of this 
-task is to connect these elements and wofish rk with Rust on Solana. You will become familiar 
+task is to connect these elements and work with Rust on Solana. You will become familiar 
 with the basic structure of Solana programs and learn how programming on Solana is done.
 
 You'll implement an **on-chain vault program** that allows users to deposit SOL, withdraw SOL (if they're the vault authority), and toggle the vault's lock state. The vault demonstrates core Solana concepts including **Program Derived Addresses (PDAs)**, **Cross-Program Invocations (CPIs)**, **account validation**, and **state management**.

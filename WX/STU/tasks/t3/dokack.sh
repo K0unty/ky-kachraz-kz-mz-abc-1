@@ -33,5 +33,32 @@ dok_ack() {
     eval "$c2"
 }
 
+dc_cl() {
+    echo "This will remove ALL Docker containers, images, volumes, and networks. Continue? (y/N)"
+    read -r response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        echo "Stopping all containers..."
+        docker stop $(docker ps -qa) 2>/dev/null || true
+
+        echo "Removing all containers..."
+        docker rm $(docker ps -qa) 2>/dev/null || true
+
+        echo "Removing all images..."
+        docker rmi $(docker images -qa) 2>/dev/null || true
+
+        echo "Removing all volumes..."
+        docker volume rm $(docker volume ls -q) 2>/dev/null || true
+
+        echo "Removing all networks..."
+        docker network rm $(docker network ls -q) 2>/dev/null || true
+
+        echo "Docker cleanup complete."
+    else
+        echo "Operation cancelled."
+    fi
+}
+
+
 # Execute
-dok_ack
+# dok_ack
+dc_cl

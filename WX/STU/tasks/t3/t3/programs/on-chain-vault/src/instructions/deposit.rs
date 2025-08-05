@@ -19,11 +19,43 @@ use crate::events::DepositEvent;
 
 #[derive(Accounts)]
 pub struct Deposit<'info> {
-    // TODO: Add required accounts and constraints
-    pub placeholder: Signer<'info>,
+    #[account(mut)]
+    pub vault: Account<'info, Vault>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    pub system_program: Program<'info, System>,
 }
 
 pub fn _deposit(ctx: Context<Deposit>, amount: u64) -> Result<()> {
-    // TODO: Implement deposit functionality
-    todo!()
+    // Verify vault is not locked
+    require!(!ctx.accounts.vault.locked, VaultError::VaultLocked);
+
+    // Verify user has enough balance
+    require!(
+        ctx.accounts.user.to_account_info().lamports() >= amount,
+        VaultError::InsufficientBalance
+    );
+
+    // Transfer lamports from user to vault using CPI
+    invoke(
+        &transfer(
+            ctx.accounts.user.key,
+            ctx.accounts.vault.to_account_info().key,
+            amount,
+        ),
+        &[
+            ctx.accounts.user.to_account_info(),
+            ctx.accounts.vault.to_account_info(),
+            ctx.accounts.system_program.to_account_info(),
+        ],
+    )?;
+
+    // Emit deposit event
+    emit!(DepositEvent {
+        amount,
+        user: ctx.accounts.user.key(),
+        vault: ctx.accounts.vault.key(),
+    });
+
+    Ok(())
 }

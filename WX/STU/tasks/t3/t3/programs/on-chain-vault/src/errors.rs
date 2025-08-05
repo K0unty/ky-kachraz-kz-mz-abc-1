@@ -8,4 +8,6 @@ pub enum VaultError {
     Overflow,
     #[msg("Insufficient balance")]
     InsufficientBalance,
+    #[msg("Unauthorized")]
+    Unauthorized,
 }

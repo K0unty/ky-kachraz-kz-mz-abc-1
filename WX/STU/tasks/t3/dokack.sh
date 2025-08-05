@@ -60,5 +60,5 @@ dc_cl() {
 
 
 # Execute
-# dok_ack
-dc_cl
+dok_ack
+# dc_cl

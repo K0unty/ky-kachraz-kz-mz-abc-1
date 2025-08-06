@@ -108,6 +108,14 @@ solana_airdrop_all() {
   echo "   solana balance --keypair solana_wallets/wallet_0.json"
 }
 
+# Change to devnet 
+sol_devnet() {
+  h1 "Change to devnet"
+  col="solana config set --url https://api.devnet.solana.com"
+  col=""
+
+}
+
 # Execution 
 # solana_airdrop_5
 create_10_solana_wallets

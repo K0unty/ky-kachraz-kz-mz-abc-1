@@ -112,11 +112,15 @@ solana_airdrop_all() {
 sol_devnet() {
   h1 "Change to devnet"
   col="solana config set --url https://api.devnet.solana.com"
-  col=""
-
+  co2="solana config get"
+  echo -e "${GREEN} Executing ${co1}${NC}"
+  eval "$co1"
+  echo -e "${GREEN} Executing ${co2}${NC}"
+  eval "$co2"
 }
 
 # Execution 
 # solana_airdrop_5
-create_10_solana_wallets
+# create_10_solana_wallets
 # solana_airdrop_all
+sol_devnet

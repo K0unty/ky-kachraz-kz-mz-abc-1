@@ -68,6 +68,47 @@ create_10_solana_wallets() {
   done
 }
 
+solana_airdrop_all() {
+  local wallet_dir="solana_wallets"
+  local amount=1
+  local url="https://api.devnet.solana.com"
+
+  # Check if directory exists
+  if [ ! -d "$wallet_dir" ]; then
+    echo "❌ Error: Directory '$wallet_dir' not found!"
+    echo "💡 Run the wallet creation function first."
+    return 1
+  fi
+
+  echo "🚀 Airdropping $amount SOL to 10 wallets on devnet..."
+  echo "🌐 Cluster: $url"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  for i in {0..9}; do
+    local wallet_file="$wallet_dir/wallet_${i}.json"
+    
+    if [ ! -f "$wallet_file" ]; then
+      echo "❌ Missing: wallet_${i}.json"
+      continue
+    fi
+
+    local address=$(solana address --keypair "$wallet_file" 2>/dev/null)
+    echo "📬 Wallet $i: $address"
+    echo "💸 Airdropping $amount SOL..."
+    
+    # Request airdrop
+    solana airdrop $amount --keypair "$wallet_file" --url "$url"
+
+    # Add small delay to avoid rate limits
+    sleep 1
+  done
+
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "✅ Airdrop complete! Check balances with:"
+  echo "   solana balance --keypair solana_wallets/wallet_0.json"
+}
+
 # Execution 
 # solana_airdrop_5
-create_10_solana_wallets
+# create_10_solana_wallets
+solana_airdrop_all

@@ -6,6 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
+booty = "D1y6eMGhY1kzSTYNNgF76LxqkDqkke64Wq141KLjXSnG"
 pe1 = "4DHmXPyVMB6ULWFrTDM1pNqajhUo2jFep844Rn1JzB8r"
 
 [registry]

@@ -20,5 +20,28 @@ hea1() {
 }
 
 # Commands
+solana_airdrop_100() {
+  # Set network to devnet
+  solana config set --url devnet > /dev/null 2>&1
+  echo "🚀 Using Solana devnet"
+
+  # Get wallet address
+  WALLET=$(solana address 2>/dev/null)
+  if [ $? -ne 0 ]; then
+    echo "❌ Error: No wallet found. Run 'solana-keygen new' to create one."
+    return 1
+  fi
+
+  echo "📬 Wallet Address: $WALLET"
+  
+  # Request 100 SOL airdrop
+  echo "💸 Airdropping 100 SOL..."
+  solana airdrop 100
+
+  # Check final balance
+  echo "📊 Final Balance:"
+  solana balance
+}
 
 # Execution 
+solana_airdrop_100

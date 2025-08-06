@@ -119,8 +119,20 @@ sol_devnet() {
   eval "$co2"
 }
 
+# Check balance in  6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd
+sol_chk() {
+  h1 "Check balance in 6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
+  WAL="6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
+  co1="solana balance ${WAL}"
+  echo -e "${GREEN} Executing ${co1}${NC}"
+  eval "$co1"
+}
+
+
+
 # Execution 
 # solana_airdrop_5
 # create_10_solana_wallets
 # solana_airdrop_all
-sol_devnet
+# sol_devnet
+sol_chk

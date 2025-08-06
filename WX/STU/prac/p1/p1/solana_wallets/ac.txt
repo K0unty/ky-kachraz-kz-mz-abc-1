@@ -103,7 +103,7 @@ wagon series honey child stereo useless opinion scene zebra fade spice mix
 📂 Keypairs saved in ./solana_wallets/
 
 📋 Public Addresses:
-Wallet 0: 6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd
+Wallet 0: 6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd - 5 sol
 Wallet 1: 2RcCGxFX2dzj66k9khnC9NnLMvfZJQZV3hWpzkEiv1oz
 Wallet 2: 7mMHVYwXFmGCe2SmpGs9J1tE9bJhEhWNz9f14u1gXd7f
 Wallet 3: DdNuzFN4BgtEG5kVfRrUa4cLyQUR2ME8WiCmn9jjtWFg

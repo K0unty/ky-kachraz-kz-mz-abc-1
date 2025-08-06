@@ -7,3 +7,10 @@
 |       DIR        |                               Wah                                |
 | :--------------: | :--------------------------------------------------------------: |
 | [`s7l2`](./s712) | [`Rust Intro`](https://youtu.be/K7BiXI8kqm0?si=p318bqFMWJlBGS-I) |
+|   [`p1`](./p1)   | [`Rust Intro`](https://youtu.be/K7BiXI8kqm0?si=p318bqFMWJlBGS-I) |
+
+# Releant lnx
+
+|                      lns                      |                                 desc                                 |
+| :-------------------------------------------: | :------------------------------------------------------------------: |
+| [`Solana Playground`](https://beta.solpg.io/) | Solana playground , note this is in beta and confusing to understand |

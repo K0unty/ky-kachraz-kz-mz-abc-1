@@ -110,5 +110,5 @@ solana_airdrop_all() {
 
 # Execution 
 # solana_airdrop_5
-# create_10_solana_wallets
-solana_airdrop_all
+create_10_solana_wallets
+# solana_airdrop_all

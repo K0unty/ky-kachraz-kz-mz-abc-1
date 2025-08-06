@@ -20,7 +20,7 @@ hea1() {
 }
 
 # Commands
-solana_airdrop_100() {
+solana_airdrop_5() {
   # Set network to devnet
   solana config set --url devnet > /dev/null 2>&1
   echo "🚀 Using Solana devnet"
@@ -36,12 +36,38 @@ solana_airdrop_100() {
   
   # Request 100 SOL airdrop
   echo "💸 Airdropping 100 SOL..."
-  solana airdrop 100
+  solana airdrop 5
 
   # Check final balance
   echo "📊 Final Balance:"
   solana balance
 }
 
+# 10 addresses 
+create_10_solana_wallets() {
+  local dir="solana_wallets"
+  mkdir -p "$dir"
+
+  echo "🔐 Creating 10 new Solana keypairs in ./$dir/"
+
+  for i in {0..9}; do
+    local file="$dir/wallet_${i}.json"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "Wallet $i:"
+    solana-keygen new --no-passphrase --outfile "$file"
+  done
+
+  echo "✅ All 10 wallets created!"
+  echo "📂 Keypairs saved in ./$dir/"
+  echo ""
+  echo "📋 Public Addresses:"
+  for i in {0..9}; do
+    local file="$dir/wallet_${i}.json"
+    local address=$(solana address --keypair "$file" 2>/dev/null)
+    echo "Wallet $i: $address"
+  done
+}
+
 # Execution 
-solana_airdrop_100
+# solana_airdrop_5
+create_10_solana_wallets

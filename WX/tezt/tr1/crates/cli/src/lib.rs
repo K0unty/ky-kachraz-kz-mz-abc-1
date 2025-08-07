@@ -22,7 +22,7 @@ macro_rules! load_template {
     about = "Trident is Rust based fuzzer for Solana programs written using Anchor framework."
 )]
 struct Cli {
-    #[arg(long, help = "Print version information")]
+    #[arg(short = 'v', long, help = "Print version information")]
     version: bool,
     #[clap(subcommand)]
     command: Option<Command>,

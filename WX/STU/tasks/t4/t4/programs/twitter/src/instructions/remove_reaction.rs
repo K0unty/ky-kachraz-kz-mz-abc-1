@@ -44,9 +44,11 @@ pub struct RemoveReactionContext<'info> {
 
     #[account(
         mut,
-        close = reaction_author
+        close = reaction_author,
+        has_one = reaction_author
     )]
     pub tweet_reaction: Account<'info, Reaction>,
 
     #[account(mut)]
-    pub tweet: Account<'info, Tweet>,
+    pub tweet: Account<'info, Tweet>
+}

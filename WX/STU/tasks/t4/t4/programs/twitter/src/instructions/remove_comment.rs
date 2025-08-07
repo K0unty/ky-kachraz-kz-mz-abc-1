@@ -15,19 +15,18 @@ use anchor_lang::solana_program::hash::hash;
 
 use crate::states::*;
 
-pub fn remove_comment(_ctx: Context<RemoveCommentContext>, _content: String) -> Result<()> {
+pub fn remove_comment(_ctx: Context<RemoveCommentContext>) -> Result<()> {
     Ok(())
 }
 
 #[derive(Accounts)]
-#[instruction(content: String)]
 pub struct RemoveCommentContext<'info> {
     #[account(
         mut,
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
-            &hash(content.as_bytes()).to_bytes(),
+            &hash(comment.content.as_bytes()).to_bytes(),
             tweet.key().as_ref()
         ],
         bump = comment.bump,

@@ -27,7 +27,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
     comment.content = comment_content;
     comment.comment_author = ctx.accounts.comment_author.key();
     comment.parent_tweet = ctx.accounts.tweet.key();
-    comment.bump = *ctx.bumps.get("comment").unwrap();
+    comment.bump = ctx.bumps.comment;
 
     Ok(())
 }

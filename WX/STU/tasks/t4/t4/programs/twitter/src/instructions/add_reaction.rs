@@ -38,7 +38,7 @@ pub fn add_reaction(ctx: Context<AddReactionContext>, reaction: ReactionType) ->
     tweet_reaction.reaction = reaction;
     tweet_reaction.reaction_author = ctx.accounts.reaction_author.key();
     tweet_reaction.parent_tweet = tweet.key();
-    tweet_reaction.bump = *ctx.bumps.get("tweet_reaction").unwrap();
+    tweet_reaction.bump = ctx.bumps.tweet_reaction;
 
     Ok(())
 }

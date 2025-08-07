@@ -33,6 +33,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
 
 #[derive(Accounts)]
 #[instruction(comment_content: String)]
+#[derive(Accounts)]
 pub struct AddCommentContext<'info> {
     #[account(
         init,

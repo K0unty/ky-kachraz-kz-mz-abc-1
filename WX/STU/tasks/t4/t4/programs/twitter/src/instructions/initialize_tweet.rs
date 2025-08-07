@@ -43,19 +43,16 @@ pub fn initialize_tweet(
 
 #[derive(Accounts)]
 #[instruction(topic: String)]
+#[derive(Accounts)]
 pub struct InitializeTweet<'info> {
     #[account(
         init,
-        seeds = [
-            topic.as_bytes(),
-            TWEET_SEED.as_bytes(),
-            tweet_authority.key().as_ref()
-        ],
-        bump,
-        payer = tweet_authority,
+        payer = tweet_author,
         space = 8 + Tweet::INIT_SPACE,
+        seeds = [b"tweet", tweet_author.key().as_ref()],
+        bump
     )]
-    pub tweet: Account<'info, Tweet>,
+    pub tweet: Account<'info, Tweet>, 
 
     pub tweet_authority: Signer<'info>,
     

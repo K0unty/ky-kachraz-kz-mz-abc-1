@@ -15,15 +15,15 @@ use anchor_lang::solana_program::hash::hash;
 use crate::errors::TwitterError;
 use crate::states::*;
 
-pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<()> {
+pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> Result<()> {
     // Validate comment length
-    if content.len() > COMMENT_LENGTH {
+    if comment_content.len() > COMMENT_LENGTH {
         return Err(TwitterError::CommentTooLong.into());
     }
 
     // Set the comment fields
     let comment = &mut ctx.accounts.comment;
-    comment.content = content;
+    comment.content = comment_content;
     comment.comment_author = ctx.accounts.comment_author.key();
     comment.parent_tweet = ctx.accounts.tweet.key();
     comment.bump = ctx.bumps.comment;
@@ -32,7 +32,6 @@ pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<(
 }
 
 #[derive(Accounts)]
-#[instruction(content: String)]
 pub struct AddCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
@@ -43,7 +42,6 @@ pub struct AddCommentContext<'info> {
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
-            hash(content.as_bytes()).as_ref(),
             tweet.key().as_ref()
         ],
         bump,

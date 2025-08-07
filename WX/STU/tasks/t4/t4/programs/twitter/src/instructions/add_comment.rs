@@ -15,7 +15,7 @@ use anchor_lang::solana_program::hash::hash;
 use crate::errors::TwitterError;
 use crate::states::*;
 
-pub fn comment_tweet(ctx: Context<AddCommentContext>, content: String) -> Result<()> {
+pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<()> {
     // Validate comment length
     if content.len() > COMMENT_LENGTH {
         return Err(TwitterError::CommentTooLong.into());
@@ -43,6 +43,7 @@ pub struct AddCommentContext<'info> {
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
+            hash(content.as_bytes()).as_ref(),
             tweet.key().as_ref()
         ],
         bump,

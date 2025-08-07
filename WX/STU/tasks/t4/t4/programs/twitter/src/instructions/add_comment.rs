@@ -43,7 +43,11 @@ pub struct AddCommentContext<'info> {
         seeds = [
             b"comment",
             comment_author.key().as_ref(),
-            &hash(comment_content.as_bytes()).to_bytes(),
+            // Pre-compute the hash during account validation
+            &{
+                let content_bytes = comment_content.as_bytes();
+                hash(content_bytes).to_bytes()
+            },
             parent_tweet.key().as_ref()
         ],
         bump,
@@ -54,4 +58,10 @@ pub struct AddCommentContext<'info> {
     pub parent_tweet: Account<'info, Tweet>,
 
     pub system_program: Program<'info, System>,
+
+    // Store the content in the context for validation
+    #[account(
+        constraint = comment_content.len() <= COMMENT_LENGTH @ TwitterError::CommentTooLong
+    )]
+    pub content: String,
 }

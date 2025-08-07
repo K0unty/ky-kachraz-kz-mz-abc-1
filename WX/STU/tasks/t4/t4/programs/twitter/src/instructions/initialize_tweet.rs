@@ -1,16 +1,15 @@
 //-------------------------------------------------------------------------------
 ///
 /// TASK: Implement the initialize tweet functionality for the Twitter program
-/// 
+///
 /// Requirements:
 /// - Validate that topic and content don't exceed maximum lengths
 /// - Initialize a new tweet account with proper PDA seeds
 /// - Set tweet fields: topic, content, author, likes, dislikes, and bump
 /// - Initialize counters (likes and dislikes) to zero
 /// - Use topic in PDA seeds for tweet identification
-/// 
+///
 ///-------------------------------------------------------------------------------
-
 use anchor_lang::prelude::*;
 
 use crate::errors::TwitterError;

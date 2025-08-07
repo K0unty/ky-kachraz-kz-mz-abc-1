@@ -1,19 +1,18 @@
 //-------------------------------------------------------------------------------
 ///
 /// TASK: Implement the remove comment functionality for the Twitter program
-/// 
+///
 /// Requirements:
 /// - Close the comment account and return rent to comment author
-/// 
-/// NOTE: No implementation logic is needed in the function body - this 
+///
+/// NOTE: No implementation logic is needed in the function body - this
 /// functionality is achieved entirely through account constraints!
-/// 
+///
 ///-------------------------------------------------------------------------------
-
 use anchor_lang::prelude::*;
 
-use crate::states::*;
 use crate::errors::TwitterError;
+use crate::states::*;
 
 pub fn remove_comment(_ctx: Context<RemoveCommentContext>) -> Result<()> {
     Ok(())
@@ -34,5 +33,5 @@ pub struct RemoveCommentContext<'info> {
 
     pub tweet: Account<'info, Tweet>,
 
-    pub system_program: Program<'info, System>
+    pub system_program: Program<'info, System>,
 }

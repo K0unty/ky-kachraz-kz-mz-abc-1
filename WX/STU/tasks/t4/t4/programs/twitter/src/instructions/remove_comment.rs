@@ -24,8 +24,11 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // Tests pass the parent tweet account as `tweet`
+    // Match tests exactly: they pass this account labeled `tweet`
     pub tweet: Account<'info, Tweet>,
+
+    // Keep system_program here if the test harness expects it in the account list ordering
+    pub system_program: Program<'info, System>,
 
     #[account(
         mut,

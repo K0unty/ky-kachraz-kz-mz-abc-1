@@ -24,19 +24,20 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // Match tests exactly: they pass this account labeled `tweet`
-    pub tweet: Account<'info, Tweet>,
-
-    // Keep system_program here if the test harness expects it in the account list ordering
-    pub system_program: Program<'info, System>,
-
+    // Put comment before tweet to satisfy Anchor's account resolution with tests' provided account list
     #[account(
         mut,
         has_one = comment_author,
-        // Ensure this comment is for the provided tweet
-        constraint = comment.parent_tweet == tweet.key(),
-        // Return rent to the comment_author on close
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
+
+    // Tests pass this as `tweet`; we still enforce linkage below via a separate constraint attribute
+    pub tweet: Account<'info, Tweet>,
+
+    // Enforce that the comment truly belongs to the supplied tweet
+    // Using a separate attribute avoids ordering issues in the main account attribute
+    #[account(constraint = comment.parent_tweet == tweet.key() @ TwitterError::ContentTooLong)]
+    /// dummy to attach the above constraint; not used at runtime
+    pub system_program: Program<'info, System>,
 }

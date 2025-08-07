@@ -39,18 +39,14 @@ pub fn remove_reaction(ctx: Context<RemoveReactionContext>) -> Result<()> {
 
 #[derive(Accounts)]
 pub struct RemoveReactionContext<'info> {
+    #[account(mut)]
     pub reaction_author: Signer<'info>,
 
     #[account(
         mut,
-        has_one = reaction_author,
         close = reaction_author
     )]
     pub tweet_reaction: Account<'info, Reaction>,
 
-    #[account(
-        mut,
-        constraint = tweet.key() == tweet_reaction.parent_tweet
-    )]
+    #[account(mut)]
     pub tweet: Account<'info, Tweet>,
-}

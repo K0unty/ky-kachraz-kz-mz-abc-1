@@ -15,7 +15,7 @@ use anchor_lang::solana_program::hash::hash;
 
 use crate::states::*;
 
-pub fn remove_comment(_ctx: Context<RemoveCommentContext>, content: String) -> Result<()> {
+pub fn remove_comment(_ctx: Context<RemoveCommentContext>, _content: String) -> Result<()> {
     Ok(())
 }
 

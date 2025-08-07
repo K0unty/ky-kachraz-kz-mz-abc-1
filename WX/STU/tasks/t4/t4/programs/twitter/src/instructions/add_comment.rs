@@ -10,7 +10,8 @@
 ///
 ///-------------------------------------------------------------------------------
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::keccak::hash;
+use anchor_lang::solana_program::hash::hash as sha256_hash;
+use anchor_lang::solana_program::keccak::hash as keccak_hash;
 
 use crate::errors::TwitterError;
 use crate::states::*;
@@ -23,7 +24,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
 
     // Set the comment fields
     let comment = &mut ctx.accounts.comment;
-    comment.content = comment_content;
+    comment.content = comment_content.clone();
     comment.comment_author = ctx.accounts.comment_author.key();
     comment.parent_tweet = ctx.accounts.tweet.key();
     comment.bump = ctx.bumps.comment;
@@ -43,12 +44,17 @@ pub struct AddCommentContext<'info> {
     #[account(
         init,
         payer = comment_author,
+        // IMPORTANT: Anchor macro expands #[instruction(...)] so that instruction args
+        // are in scope for attribute expressions on this Accounts struct.
+        // However, to avoid any scope/timing issues seen with direct call usage inside seeds,
+        // bind the instruction arg to a local inside the attribute block and then use it.
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
-            // Produce a 32-byte seed deterministically from the comment content.
-            // We use keccak hash (32 bytes), which matches the seed length used in tests.
-            &hash(comment_content.as_bytes()).to_bytes(),
+            {
+                let cc: &String = &comment_content;
+                hash(cc.as_bytes()).to_bytes().as_ref()
+            },
             tweet.key().as_ref()
         ],
         bump,

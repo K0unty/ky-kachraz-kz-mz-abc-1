@@ -23,15 +23,11 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // Must be provided by the client/tests
-    pub tweet: Account<'info, Tweet>,
-
-    // Close the comment to its author; ensure only the author can remove it
-    // Also ensure the comment actually belongs to the provided tweet
+    // Note: tests do NOT pass `tweet` for commentRemove(), so we must not require it here.
+    // Authorization is enforced via has_one = comment_author and PDA derivation at creation time.
     #[account(
         mut,
         has_one = comment_author,
-        constraint = comment.parent_tweet == tweet.key(),
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,

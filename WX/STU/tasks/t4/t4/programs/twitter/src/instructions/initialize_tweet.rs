@@ -25,13 +25,13 @@ pub fn initialize_tweet(
     if topic.len() > TOPIC_LENGTH {
         return Err(TwitterError::TopicTooLong.into());
     }
-    if content.len() > TWEET_LENGTH {
+    if content.len() > CONTENT_LENGTH {
         return Err(TwitterError::ContentTooLong.into());
     }
 
     // Initialize the tweet account
     let tweet = &mut ctx.accounts.tweet;
-    tweet.author = ctx.accounts.tweet_authority.key();
+    tweet.tweet_author = ctx.accounts.tweet_authority.key();
     tweet.topic = topic;
     tweet.content = content;
     tweet.likes = 0;
@@ -51,9 +51,9 @@ pub struct InitializeTweet<'info> {
         init,
         payer = tweet_authority,
         seeds = [
+            topic.as_bytes(),
             TWEET_SEED.as_bytes(),
-            tweet_authority.key().as_ref(),
-            topic.as_bytes()
+            tweet_authority.key().as_ref()
         ],
         bump,
         space = 8 + Tweet::INIT_SPACE

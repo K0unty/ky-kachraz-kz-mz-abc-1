@@ -21,22 +21,7 @@ pub fn remove_comment(_ctx: Context<RemoveCommentContext>) -> Result<()> {
 
 #[derive(Accounts)]
 pub struct RemoveCommentContext<'info> {
-    #[account(
-        mut,
-        seeds = [
-            COMMENT_SEED.as_bytes(),
-            comment_author.key().as_ref(),
-            &hash(comment.content.as_bytes()).to_bytes(),
-            tweet.key().as_ref()
-        ],
-        bump = comment.bump,
-        has_one = comment_author,
-        close = comment_author
-    )]
-    pub comment: Account<'info, Comment>,
-    
-    #[account(mut)]
-    pub tweet: Account<'info, Tweet>,
-    
+    // TODO: Add required account constraints
     pub comment_author: Signer<'info>,
+    pub comment: Account<'info, Comment>,
 }

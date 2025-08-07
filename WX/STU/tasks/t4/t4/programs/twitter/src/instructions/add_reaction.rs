@@ -50,7 +50,7 @@ pub struct AddReactionContext<'info> {
         seeds = [
             TWEET_REACTION_SEED.as_bytes(),
             reaction_author.key().as_ref(),
-            tweet.key().as_ref(),
+            tweet.key().as_ref()
         ],
         bump,
         payer = reaction_author,

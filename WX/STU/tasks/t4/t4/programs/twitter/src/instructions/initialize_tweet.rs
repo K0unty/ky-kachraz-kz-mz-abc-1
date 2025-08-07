@@ -48,7 +48,11 @@ pub struct InitializeTweet<'info> {
         init,
         payer = tweet_authority,
         space = 8 + Tweet::INIT_SPACE,
-        seeds = [b"tweet", tweet_authority.key().as_ref()],
+        seeds = [
+            topic.as_bytes(),
+            TWEET_SEED.as_bytes(),
+            tweet_authority.key().as_ref()
+        ],
         bump
     )]
     pub tweet: Account<'info, Tweet>,

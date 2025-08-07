@@ -11,7 +11,6 @@
 ///-------------------------------------------------------------------------------
 
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::hash::hash;
 
 use crate::states::*;
 use crate::errors::TwitterError;
@@ -28,12 +27,12 @@ pub struct RemoveCommentContext<'info> {
     #[account(
         mut,
         has_one = comment_author,
-        has_one = parent_tweet,
+        constraint = comment.parent_tweet == parent_tweet.key(),
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
 
-    pub tweet: Account<'info, Tweet>,
+    pub parent_tweet: Account<'info, Tweet>,
 
     pub system_program: Program<'info, System>
 }

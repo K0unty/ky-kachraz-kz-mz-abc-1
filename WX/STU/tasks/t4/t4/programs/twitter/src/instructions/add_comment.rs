@@ -10,7 +10,7 @@
 ///
 ///-------------------------------------------------------------------------------
 use anchor_lang::prelude::*;
-use anchor_lang::solana_program::hash::hash;
+use anchor_lang::solana_program::keccak::hash;
 
 use crate::errors::TwitterError;
 use crate::states::*;
@@ -41,9 +41,9 @@ pub struct AddCommentContext<'info> {
         init,
         payer = comment_author,
         seeds = [
-            COMMENT_SEED.as_bytes(),
+            b"comment",
             comment_author.key().as_ref(),
-            hash(comment_content.as_bytes()).as_ref(),
+            &hash(comment_content.as_bytes()).to_bytes(),
             parent_tweet.key().as_ref()
         ],
         bump,

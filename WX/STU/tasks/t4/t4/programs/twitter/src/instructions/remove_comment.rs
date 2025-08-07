@@ -27,12 +27,12 @@ pub struct RemoveCommentContext<'info> {
     #[account(
         mut,
         has_one = comment_author,
-        constraint = comment.parent_tweet == parent_tweet.key(),
+        constraint = comment.parent_tweet == tweet.key(),
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
 
-    pub parent_tweet: Account<'info, Tweet>,
+    pub tweet: Account<'info, Tweet>,
 
     pub system_program: Program<'info, System>
 }

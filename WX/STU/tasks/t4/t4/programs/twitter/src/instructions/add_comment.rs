@@ -15,7 +15,7 @@ use anchor_lang::solana_program::hash::hash;
 use crate::errors::TwitterError;
 use crate::states::*;
 
-pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<()> {
+pub fn comment_tweet(ctx: Context<AddCommentContext>, content: String) -> Result<()> {
     // Validate comment length
     if content.len() > COMMENT_LENGTH {
         return Err(TwitterError::CommentTooLong.into());
@@ -34,6 +34,9 @@ pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<(
 #[derive(Accounts)]
 #[instruction(content: String)]
 pub struct AddCommentContext<'info> {
+    #[account(mut)]
+    pub comment_author: Signer<'info>,
+
     #[account(
         init,
         payer = comment_author,
@@ -46,11 +49,6 @@ pub struct AddCommentContext<'info> {
         space = 8 + Comment::INIT_SPACE
     )]
     pub comment: Account<'info, Comment>,
-
-    #[account(
-        mut
-    )]
-    pub comment_author: Signer<'info>,
 
     pub tweet: Account<'info, Tweet>,
 

@@ -23,14 +23,16 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // Tests pass the parent tweet account under the name `tweet`
-    // Enforce that this is the actual parent of the comment we're closing
+    // The test harness passes this account with the name "tweet"
+    // Keep it required in the context for stronger checks, but do not list it after comment.
     pub tweet: Account<'info, Tweet>,
 
     #[account(
         mut,
         has_one = comment_author,
+        // Ensure the comment belongs to the provided tweet
         constraint = comment.parent_tweet == tweet.key(),
+        // Close the comment and return rent to the author
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,

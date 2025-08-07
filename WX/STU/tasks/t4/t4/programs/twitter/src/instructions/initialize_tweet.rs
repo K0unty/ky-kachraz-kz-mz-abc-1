@@ -43,7 +43,6 @@ pub fn initialize_tweet(
 
 #[derive(Accounts)]
 #[instruction(topic: String)]
-#[derive(Accounts)]
 pub struct InitializeTweet<'info> {
     #[account(
         init,
@@ -52,7 +51,7 @@ pub struct InitializeTweet<'info> {
         seeds = [b"tweet", tweet_author.key().as_ref()],
         bump
     )]
-    pub tweet: Account<'info, Tweet>, 
+    pub tweet: Account<'info, Tweet>,
 
     pub tweet_authority: Signer<'info>,
     

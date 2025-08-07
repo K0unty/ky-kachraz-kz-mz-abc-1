@@ -25,13 +25,14 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
     let comment = &mut ctx.accounts.comment;
     comment.content = comment_content;
     comment.comment_author = ctx.accounts.comment_author.key();
-    comment.parent_tweet = ctx.accounts.tweet.key();
+    comment.parent_tweet = ctx.accounts.parent_tweet.key();
     comment.bump = ctx.bumps.comment;
 
     Ok(())
 }
 
 #[derive(Accounts)]
+#[instruction(comment_content: String)]
 pub struct AddCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
@@ -42,14 +43,15 @@ pub struct AddCommentContext<'info> {
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
-            tweet.key().as_ref()
+            hash(comment_content.as_bytes()).as_ref(),
+            parent_tweet.key().as_ref()
         ],
         bump,
         space = 8 + Comment::INIT_SPACE
     )]
     pub comment: Account<'info, Comment>,
 
-    pub tweet: Account<'info, Tweet>,
+    pub parent_tweet: Account<'info, Tweet>,
 
     pub system_program: Program<'info, System>,
 }

@@ -44,7 +44,6 @@ pub fn add_reaction(ctx: Context<AddReactionContext>, reaction: ReactionType) ->
 }
 
 #[derive(Accounts)]
-#[instruction(reaction_type: ReactionType)]
 pub struct AddReactionContext<'info> {
     #[account(mut)]
     pub reaction_author: Signer<'info>,

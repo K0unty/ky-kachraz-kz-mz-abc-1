@@ -1,15 +1,14 @@
 //-------------------------------------------------------------------------------
 ///
 /// TASK: Implement the add reaction functionality for the Twitter program
-/// 
+///
 /// Requirements:
 /// - Initialize a new reaction account with proper PDA seeds
 /// - Increment the appropriate counter (likes or dislikes) on the tweet
 /// - Set reaction fields: type, author, parent tweet, and bump
 /// - Handle both Like and Dislike reaction types
-/// 
+///
 ///-------------------------------------------------------------------------------
-
 use anchor_lang::prelude::*;
 
 use crate::errors::TwitterError;
@@ -64,6 +63,6 @@ pub struct AddReactionContext<'info> {
 
     #[account(mut)]
     pub tweet: Account<'info, Tweet>,
-    
+
     pub system_program: Program<'info, System>,
 }

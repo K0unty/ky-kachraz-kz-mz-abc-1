@@ -1,23 +1,4 @@
-//-------------------#[derive(Accounts)]
-pub struct RemoveCommentContext<'info> {
-    #[account(mut)]
-    pub comment_author: Signer<'info>,
-
-    #[account(
-        mut,
-        seeds = [
-            COMMENT_SEED.as_bytes(),
-            comment_author.key().as_ref(),
-            hash(comment.content.as_bytes()).as_ref(),
-            tweet.key().as_ref()
-        ],
-        bump = comment.bump,
-        has_one = comment_author,
-        close = comment_author
-    )]
-    pub comment: Account<'info, Comment>,
-
-    pub tweet: Account<'info, Tweet>,------------------------------------------
+//-------------------------------------------------------------------------------
 ///
 /// TASK: Implement the remove comment functionality for the Twitter program
 /// 
@@ -45,17 +26,13 @@ pub struct RemoveCommentContext<'info> {
 
     #[account(
         mut,
-        seeds = [
-            COMMENT_SEED.as_bytes(),
-            comment_author.key().as_ref(),
-            hash(comment.content.as_bytes()).as_ref(),
-            tweet.key().as_ref()
-        ],
-        bump = comment.bump,
         has_one = comment_author,
+        constraint = comment.parent_tweet == tweet.key() @ TwitterError::InvalidTweetAccount,
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
 
-    pub tweet: Account<'info, Tweet>
+    pub tweet: Account<'info, Tweet>,
+
+    pub system_program: Program<'info, System>
 }

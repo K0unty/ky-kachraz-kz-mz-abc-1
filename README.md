@@ -13,3 +13,5 @@ Kunti - https://github.com/kachraz/kz-mz-abc-1
 |                             Site                             |         Wat         |
 | :----------------------------------------------------------: | :-----------------: |
 | [GoglComprRus](https://google.github.io/comprehensive-rust/) | Intro to Ru by gogg |
+
+helo

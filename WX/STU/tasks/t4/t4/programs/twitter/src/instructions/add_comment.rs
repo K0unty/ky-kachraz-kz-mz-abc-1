@@ -11,7 +11,6 @@
 ///-------------------------------------------------------------------------------
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::hash::hash as sha256_hash;
-use anchor_lang::solana_program::keccak::hash as keccak_hash;
 
 use crate::errors::TwitterError;
 use crate::states::*;
@@ -53,7 +52,7 @@ pub struct AddCommentContext<'info> {
             comment_author.key().as_ref(),
             {
                 let cc: &String = &comment_content;
-                hash(cc.as_bytes()).to_bytes().as_ref()
+                sha256_hash(cc.as_bytes()).to_bytes().as_ref()
             },
             tweet.key().as_ref()
         ],

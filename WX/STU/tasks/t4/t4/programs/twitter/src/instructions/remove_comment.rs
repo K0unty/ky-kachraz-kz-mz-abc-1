@@ -23,6 +23,10 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
+    // Tests pass the parent tweet account under the name `tweet`
+    // Enforce that this is the actual parent of the comment we're closing
+    pub tweet: Account<'info, Tweet>,
+
     #[account(
         mut,
         has_one = comment_author,
@@ -30,8 +34,4 @@ pub struct RemoveCommentContext<'info> {
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
-
-    pub tweet: Account<'info, Tweet>,
-
-    pub system_program: Program<'info, System>,
 }

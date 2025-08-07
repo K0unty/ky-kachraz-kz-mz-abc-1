@@ -11,7 +11,6 @@
 ///-------------------------------------------------------------------------------
 use anchor_lang::prelude::*;
 
-use crate::errors::TwitterError;
 use crate::states::*;
 
 /// NOTE: No logic needed; account constraints enforce behavior.
@@ -24,20 +23,16 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // Put comment before tweet to satisfy Anchor's account resolution with tests' provided account list
+    // Must be provided by the client/tests
+    pub tweet: Account<'info, Tweet>,
+
+    // Close the comment to its author; ensure only the author can remove it
+    // Also ensure the comment actually belongs to the provided tweet
     #[account(
         mut,
         has_one = comment_author,
+        constraint = comment.parent_tweet == tweet.key(),
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,
-
-    // Tests pass this as `tweet`; we still enforce linkage below via a separate constraint attribute
-    pub tweet: Account<'info, Tweet>,
-
-    // Enforce that the comment truly belongs to the supplied tweet
-    // Using a separate attribute avoids ordering issues in the main account attribute
-    #[account(constraint = comment.parent_tweet == tweet.key() @ TwitterError::ContentTooLong)]
-    /// dummy to attach the above constraint; not used at runtime
-    pub system_program: Program<'info, System>,
 }

@@ -83,7 +83,7 @@ pub async fn start() {
     let cli = Cli::parse();
 
     if cli.version {
-        println!("{}", env!("CARGO_PKG_VERSION"));
+        println!("{} - {} \n {}", "version", env!("CARGO_PKG_VERSION"),"https://ackee.xyz/trident/docs/latest/");
         return;
     }
 

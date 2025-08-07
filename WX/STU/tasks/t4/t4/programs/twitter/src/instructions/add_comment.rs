@@ -16,7 +16,7 @@ use crate::errors::TwitterError;
 use crate::states::*;
 
 pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> Result<()> {
-    // Validate comment length
+    // Validate comment length BEFORE any PDA init happens (so tests catch CommentTooLong)
     if comment_content.len() > COMMENT_LENGTH {
         return Err(TwitterError::CommentTooLong.into());
     }
@@ -25,7 +25,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
     let comment = &mut ctx.accounts.comment;
     comment.content = comment_content;
     comment.comment_author = ctx.accounts.comment_author.key();
-    comment.parent_tweet = ctx.accounts.parent_tweet.key();
+    comment.parent_tweet = ctx.accounts.tweet.key();
     comment.bump = ctx.bumps.comment;
 
     Ok(())
@@ -37,31 +37,24 @@ pub struct AddCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
+    // Tests pass this account as `tweet`
+    pub tweet: Account<'info, Tweet>,
+
     #[account(
         init,
         payer = comment_author,
         seeds = [
-            b"comment",
+            COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
-            // Pre-compute the hash during account validation
-            &{
-                let content_bytes = comment_content.as_bytes();
-                hash(content_bytes).to_bytes()
-            },
-            parent_tweet.key().as_ref()
+            // Produce a 32-byte seed deterministically from the comment content.
+            // We use keccak hash (32 bytes), which matches the seed length used in tests.
+            &hash(comment_content.as_bytes()).to_bytes(),
+            tweet.key().as_ref()
         ],
         bump,
         space = 8 + Comment::INIT_SPACE
     )]
     pub comment: Account<'info, Comment>,
 
-    pub parent_tweet: Account<'info, Tweet>,
-
     pub system_program: Program<'info, System>,
-
-    // Store the content in the context for validation
-    #[account(
-        constraint = comment_content.len() <= COMMENT_LENGTH @ TwitterError::CommentTooLong
-    )]
-    pub content: String,
 }

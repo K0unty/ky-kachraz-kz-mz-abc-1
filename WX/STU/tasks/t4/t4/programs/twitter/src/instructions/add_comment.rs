@@ -32,6 +32,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, content: String) -> Result<(
 }
 
 #[derive(Accounts)]
+#[instruction(content: String)]
 pub struct AddCommentContext<'info> {
     #[account(
         init,
@@ -39,6 +40,7 @@ pub struct AddCommentContext<'info> {
         seeds = [
             COMMENT_SEED.as_bytes(),
             comment_author.key().as_ref(),
+            hash(content.as_bytes()).as_ref(),
             tweet.key().as_ref()
         ],
         bump,

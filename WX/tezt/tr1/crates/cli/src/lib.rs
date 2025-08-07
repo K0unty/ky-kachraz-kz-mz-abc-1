@@ -82,18 +82,17 @@ enum Command {
 pub async fn start() {
     let cli = Cli::parse();
 
-    if cli.version {
-        println!(
-            "{} - {} \n{}",
-            "version",
-            env!("CARGO_PKG_VERSION"),
-            "https://ackee.xyz/trident/docs/latest/"
-        );
-        return;
-    }
-
-    if let Some(command) = cli.command {
-        match command {
+    match (cli.version, cli.command) {
+        (true, _) => {
+            println!(
+                "{} - {} \n{}",
+                "version",
+                env!("CARGO_PKG_VERSION"),
+                "https://ackee.xyz/trident/docs/latest/"
+            );
+            return;
+        }
+        (false, Some(command)) => match command {
             Command::How => command::howto()?,
             Command::Fuzz { subcmd } => command::fuzz(subcmd).await?,
             Command::Init {
@@ -102,10 +101,11 @@ pub async fn start() {
                 test_name,
             } => command::init(force, program_name, test_name).await?,
             Command::Clean => command::clean().await?,
+        },
+        (false, None) => {
+            // No command provided, show help
+            Cli::parse_from(["trident", "--help"]);
         }
-    } else {
-        // No command provided, show help
-        Cli::parse_from(["trident", "--help"]);
     }
 }
 

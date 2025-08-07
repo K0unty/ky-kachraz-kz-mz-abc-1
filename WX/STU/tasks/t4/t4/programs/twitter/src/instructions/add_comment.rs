@@ -11,6 +11,7 @@
 ///-------------------------------------------------------------------------------
 
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::hash::hash;
 
 use crate::errors::TwitterError;
 use crate::states::*;
@@ -44,11 +45,11 @@ pub struct AddCommentContext<'info> {
         ],
         bump,
         payer = comment_author,
-        space = 8 + Comment::INIT_SPACE,
-        mut,
+        space = 8 + Comment::INIT_SPACE
     )]
     pub comment: Account<'info, Comment>,
 
+    #[account(mut)]
     pub comment_author: Signer<'info>,
 
     #[account(mut)]

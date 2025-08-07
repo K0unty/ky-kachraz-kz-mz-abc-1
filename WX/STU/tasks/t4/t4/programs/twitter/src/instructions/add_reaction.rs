@@ -54,11 +54,11 @@ pub struct AddReactionContext<'info> {
         ],
         bump,
         payer = reaction_author,
-        space = 8 + Reaction::INIT_SPACE,
-        mut,
+        space = 8 + Reaction::INIT_SPACE
     )]
     pub tweet_reaction: Account<'info, Reaction>,
 
+    #[account(mut)]
     pub reaction_author: Signer<'info>,
 
     #[account(mut)]

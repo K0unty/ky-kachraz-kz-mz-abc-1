@@ -36,7 +36,7 @@ pub fn initialize_tweet(
     tweet.tweet_author = ctx.accounts.tweet_authority.key();
     tweet.likes = 0;
     tweet.dislikes = 0;
-    tweet.bump = *ctx.bumps.get("tweet").unwrap();
+    tweet.bump = ctx.bumps.tweet;
 
     Ok(())
 }
@@ -46,13 +46,14 @@ pub fn initialize_tweet(
 pub struct InitializeTweet<'info> {
     #[account(
         init,
-        payer = tweet_author,
+        payer = tweet_authority,
         space = 8 + Tweet::INIT_SPACE,
-        seeds = [b"tweet", tweet_author.key().as_ref()],
+        seeds = [b"tweet", tweet_authority.key().as_ref()],
         bump
     )]
     pub tweet: Account<'info, Tweet>,
 
+    #[account(mut)]
     pub tweet_authority: Signer<'info>,
     
     pub system_program: Program<'info, System>,

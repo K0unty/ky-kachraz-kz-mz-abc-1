@@ -10,6 +10,7 @@
 ///
 ///-------------------------------------------------------------------------------
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::hash::hash;
 
 use crate::errors::TwitterError;
 use crate::states::*;
@@ -22,7 +23,7 @@ pub fn add_comment(ctx: Context<AddCommentContext>, comment_content: String) -> 
 
     // Set the comment fields
     let comment = &mut ctx.accounts.comment;
-    comment.content = comment_content;
+    comment.content = comment_content.clone();
     comment.comment_author = ctx.accounts.comment_author.key();
     comment.parent_tweet = ctx.accounts.tweet.key();
     comment.bump = ctx.bumps.comment;
@@ -47,10 +48,11 @@ pub struct AddCommentContext<'info> {
     )]
     pub comment: Account<'info, Comment>,
 
-    #[account(mut)]
+    #[account(
+        mut
+    )]
     pub comment_author: Signer<'info>,
 
-    #[account(mut)]
     pub tweet: Account<'info, Tweet>,
 
     pub system_program: Program<'info, System>,

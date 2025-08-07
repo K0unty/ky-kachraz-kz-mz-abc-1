@@ -14,6 +14,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::hash::hash;
 
 use crate::states::*;
+use crate::errors::TwitterError;
 
 pub fn remove_comment(_ctx: Context<RemoveCommentContext>) -> Result<()> {
     Ok(())
@@ -27,7 +28,7 @@ pub struct RemoveCommentContext<'info> {
     #[account(
         mut,
         has_one = comment_author,
-        constraint = comment.parent_tweet == tweet.key() @ TwitterError::InvalidTweetAccount,
+        constraint = comment.parent_tweet == tweet.key(),
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,

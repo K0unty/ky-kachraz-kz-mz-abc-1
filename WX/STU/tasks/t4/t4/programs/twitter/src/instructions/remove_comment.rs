@@ -14,6 +14,7 @@ use anchor_lang::prelude::*;
 use crate::errors::TwitterError;
 use crate::states::*;
 
+/// NOTE: No logic needed; account constraints enforce behavior.
 pub fn remove_comment(_ctx: Context<RemoveCommentContext>) -> Result<()> {
     Ok(())
 }
@@ -23,16 +24,15 @@ pub struct RemoveCommentContext<'info> {
     #[account(mut)]
     pub comment_author: Signer<'info>,
 
-    // The test harness passes this account with the name "tweet"
-    // Keep it required in the context for stronger checks, but do not list it after comment.
+    // Tests pass the parent tweet account as `tweet`
     pub tweet: Account<'info, Tweet>,
 
     #[account(
         mut,
         has_one = comment_author,
-        // Ensure the comment belongs to the provided tweet
+        // Ensure this comment is for the provided tweet
         constraint = comment.parent_tweet == tweet.key(),
-        // Close the comment and return rent to the author
+        // Return rent to the comment_author on close
         close = comment_author
     )]
     pub comment: Account<'info, Comment>,

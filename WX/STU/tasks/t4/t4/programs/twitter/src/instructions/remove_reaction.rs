@@ -15,8 +15,26 @@ use crate::errors::TwitterError;
 use crate::states::*;
 
 pub fn remove_reaction(ctx: Context<RemoveReactionContext>) -> Result<()> {
-    // TODO: Implement remove reaction functionality
-    todo!()
+    let tweet = &mut ctx.accounts.tweet;
+    let reaction = &ctx.accounts.tweet_reaction;
+
+    // Decrement the appropriate counter
+    match reaction.reaction {
+        ReactionType::Like => {
+            if tweet.likes == 0 {
+                return Err(TwitterError::MinLikesReached.into());
+            }
+            tweet.likes -= 1;
+        }
+        ReactionType::Dislike => {
+            if tweet.dislikes == 0 {
+                return Err(TwitterError::MinDislikesReached.into());
+            }
+            tweet.dislikes -= 1;
+        }
+    }
+
+    Ok(())
 }
 
 #[derive(Accounts)]

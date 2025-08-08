@@ -84,7 +84,21 @@ air_t() {
 
     hea1 "AirPanty to adrez"
 
-
+    for address in "${adrz[@]}"
+    do
+        echo -n "Airdropping to $address... "
+        
+        # Perform airdrop (suppress verbose output but keep errors)
+        result=$(solana airdrop 0.1 "$address" --url devnet 2>&1)
+        
+        if [[ $result == *"Signature"* ]]; then
+            echo "✅ Success!"
+        else
+            echo "❌ Failed: $result"
+        fi
+        
+        sleep 1  # Rate limiting protection
+    done
 
     end_gfx
 }
@@ -92,4 +106,5 @@ air_t() {
 
 # --- Main Execution ---
 # anch_t
-bal_t
+# bal_t
+# air_t

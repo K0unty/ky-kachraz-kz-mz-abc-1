@@ -52,19 +52,19 @@ anch_t() {
     end_gfx
 }
 
+# Address 
+declare -a adrz=(
+"6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
+"2RcCGxFX2dzj66k9khnC9NnLMvfZJQZV3hWpzkEiv1oz"
+"7mMHVYwXFmGCe2SmpGs9J1tE9bJhEhWNz9f14u1gXd7f"
+)
+
 bal_t() {
     
     start_gfx
     hea1 "Solana Devnet balance checker"
-    
-    # Address 
-    declare -a addresses=(
-    "6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
-    "2RcCGxFX2dzj66k9khnC9NnLMvfZJQZV3hWpzkEiv1oz"
-    "7mMHVYwXFmGCe2SmpGs9J1tE9bJhEhWNz9f14u1gXd7f"
-    )
 
-    for address in "${addresses[@]}"
+    for address in "${adrz[@]}"
     do
     echo -en "Checking devent balance for ${BLUE} $address: ${NC}"
     balance=$(solana balance "$address" --url devnet 2>/dev/null)
@@ -75,6 +75,16 @@ bal_t() {
         echo "Error fetching balance (invalid address or connection issue)"
     fi
     done
+
+    end_gfx
+}
+
+air_t() {
+    start_gfx
+
+    hea1 "AirPanty to adrez"
+
+
 
     end_gfx
 }

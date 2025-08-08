@@ -60,6 +60,8 @@ bal_t() {
     # Address 
     declare -a addresses=(
     "6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
+    "2RcCGxFX2dzj66k9khnC9NnLMvfZJQZV3hWpzkEiv1oz"
+    "7mMHVYwXFmGCe2SmpGs9J1tE9bJhEhWNz9f14u1gXd7f"
     )
 
     for address in "${addresses[@]}"

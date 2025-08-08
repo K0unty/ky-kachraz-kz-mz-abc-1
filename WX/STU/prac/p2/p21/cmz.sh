@@ -82,6 +82,8 @@ bal_t() {
 air_t() {
     start_gfx
 
+    AMT="1"
+
     hea1 "AirPanty to adrez"
 
     for address in "${adrz[@]}"
@@ -89,7 +91,7 @@ air_t() {
         echo -n "Airdropping to $address... "
         
         # Perform airdrop (suppress verbose output but keep errors)
-        result=$(solana airdrop 0.1 "$address" --url devnet 2>&1)
+        result=$(solana airdrop $AMT "$address" --url devnet 2>&1)
         
         if [[ $result == *"Signature"* ]]; then
             echo "✅ Success!"
@@ -106,5 +108,5 @@ air_t() {
 
 # --- Main Execution ---
 # anch_t
-# bal_t
-# air_t
+air_t
+bal_t

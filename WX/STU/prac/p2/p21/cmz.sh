@@ -107,6 +107,6 @@ air_t() {
 
 
 # --- Main Execution ---
-# anch_t
-air_t
 bal_t
+anch_t
+# air_t

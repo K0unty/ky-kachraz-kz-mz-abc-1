@@ -105,8 +105,23 @@ air_t() {
     end_gfx
 }
 
+# Start Dockerz 
+dok_st() {
+    hea1 "Starting school-of-solana docker"
+    co1="docker ps -a"
+    co2="docker start school-of-solana"
+    co3="docker exec -it school-of-solana bash"
+    echo -e "${GREEN}Executing...${co1}${NC}"
+    eval "$co1"
+    echo -e "${GREEN}Executing...${co2}${NC}"
+    eval "$co2"
+    echo -e "${GREEN}Executing...${co3}${NC}"    
+    eval "$co3"
+}
+
 
 # --- Main Execution ---
 bal_t
 anch_t
 # air_t
+# dok_st

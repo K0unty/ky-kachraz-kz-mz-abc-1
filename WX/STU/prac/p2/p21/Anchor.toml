@@ -5,8 +5,8 @@ package_manager = "yarn"
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-p21 = "8Re4KgcYHxU2zYb1jJ32a334aytW1bjUAgLyCHUGhqUt"
+[programs.devnet]
+p21 = "FKeGW2KYKDMUUhJpFb5QJeLXBv5RzVQM4fcEWKGD997d"
 
 [registry]
 url = "https://api.apr.dev"

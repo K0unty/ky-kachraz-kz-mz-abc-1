@@ -132,10 +132,22 @@ anch_d() {
     end_gfx
 }
 
+wal_ver() {
+    start_gfx
+    
+    hea1 "Solana wallet version"
+    co1="solana-keygen verify /solana_wallets/wallet_0.json"
+    echo -e "${GREEN}Executing...${co1}${NC}"
+    eval "$co1"
+
+    end_gfx
+}
+
 
 # --- Main Execution ---
 # air_t
 # bal_t
 # anch_t
 # dok_st
-anch_d
+# anch_d
+wal_ver

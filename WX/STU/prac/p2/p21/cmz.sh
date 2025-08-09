@@ -121,6 +121,9 @@ dok_st() {
 
 # Anchor deploy 
 function deploy_to_devnet() {
+    start_gfx
+    hea1 "Deploying Anchor program to devnet"
+
     # Configuration
     local WALLET_PATH="/panty/prac/p2/p21/solana_wallets/wallet_0.json"
     local PROGRAM_NAME="p21"
@@ -214,6 +217,8 @@ function deploy_to_devnet() {
     echo "Deployer: $DEPLOYER_PUBKEY"
     echo "Current balance: $(get_balance) SOL"
     return 0
+
+    end_gfx
 }
 
 # --- Main Execution ---

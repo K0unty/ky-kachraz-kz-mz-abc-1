@@ -120,34 +120,74 @@ dok_st() {
 }
 
 # Anchor deploy 
-anch_d() {
-    start_gfx
+function deploy_to_devnet() {
+    # Set variables
+    WALLET_PATH="./solana_wallets/wallet_0.json"
+    PROGRAM_NAME="p21"
+    ANCHOR_TOML="./Anchor.toml"
+    LIB_RS="./programs/${PROGRAM_NAME}/src/lib.rs"
 
-    hea1 "Anchor deploy"
-    co1="solana config set --url devnet"
-    co2="solana config get"
-    co3="solana balance"
-    eval "$co1"
+    # 1. Check if wallet exists
+    if [ ! -f "$WALLET_PATH" ]; then
+        echo "❌ Error: Wallet not found at $WALLET_PATH"
+        return 1
+    fi
 
-    end_gfx
+    # 2. Verify wallet
+    echo "🔐 Verifying wallet..."
+    if ! solana-keygen verify "$WALLET_PATH"; then
+        echo "❌ Error: Wallet verification failed"
+        return 1
+    fi
+
+    # 3. Check balance
+    echo "💰 Checking balance..."
+    BALANCE=$(solana balance --url devnet --keypair "$WALLET_PATH" | awk '{print $1}')
+    if (( $(echo "$BALANCE < 1" | bc -l) )); then
+        echo "⚠️ Low balance ($BALANCE SOL). Airdropping 2 SOL..."
+        solana airdrop 2 --url devnet --keypair "$WALLET_PATH"
+    fi
+
+    # 4. Build program
+    echo "🏗 Building program..."
+    if ! anchor build; then
+        echo "❌ Error: Build failed"
+        return 1
+    fi
+
+    # 5. Get new program ID
+    NEW_PROGRAM_ID=$(solana address -k "./target/deploy/${PROGRAM_NAME}-keypair.json")
+    echo "🆔 New program ID: $NEW_PROGRAM_ID"
+
+    # 6. Update program ID in files
+    echo "✏️ Updating program ID..."
+    sed -i.bak "s/^p21 = .*/p21 = \"$NEW_PROGRAM_ID\"/" "$ANCHOR_TOML"
+    sed -i.bak "s/declare_id!(\".*\")/declare_id!(\"$NEW_PROGRAM_ID\")/" "$LIB_RS"
+
+    # 7. Deploy to devnet
+    echo "🚀 Deploying to devnet..."
+    if ! anchor deploy --provider.cluster devnet --provider.wallet "$WALLET_PATH"; then
+        echo "❌ Error: Deployment failed"
+        return 1
+    fi
+
+    # 8. Run tests
+    echo "🧪 Running tests..."
+    if ! anchor test --provider.cluster devnet --provider.wallet "$WALLET_PATH"; then
+        echo "❌ Error: Tests failed"
+        return 1
+    fi
+
+    echo "🎉 Successfully deployed to devnet!"
+    echo "Program ID: $NEW_PROGRAM_ID"
 }
 
-wal_ver() {
-    start_gfx
-    
-    hea1 "Solana wallet version"
-    co1="solana-keygen verify /solana_wallets/wallet_0.json"
-    echo -e "${GREEN}Executing...${co1}${NC}"
-    eval "$co1"
-
-    end_gfx
-}
 
 
 # --- Main Execution ---
 # air_t
 # bal_t
-anch_t
+deploy_to_devnet
 # dok_st
 # anch_d
 # wal_ver

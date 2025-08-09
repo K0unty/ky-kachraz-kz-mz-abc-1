@@ -121,7 +121,7 @@ dok_st() {
 
 
 # --- Main Execution ---
+air_t
 bal_t
 anch_t
-# air_t
 # dok_st

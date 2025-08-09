@@ -119,9 +119,20 @@ dok_st() {
     eval "$co3"
 }
 
+# Anchor deploy 
+anch_d() {
+    start_gfx
+    hea1 "Anchor deploy"
+    co1="anchor deploy"
+    echo -e "${GREEN}Executing...${co1}${NC}"
+    eval "$co1"
+    end_gfx
+}
+
 
 # --- Main Execution ---
-air_t
-bal_t
-anch_t
+# air_t
+# bal_t
+# anch_t
 # dok_st
+anch_d

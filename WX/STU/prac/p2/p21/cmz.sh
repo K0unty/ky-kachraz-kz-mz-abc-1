@@ -121,18 +121,15 @@ dok_st() {
 
 # Anchor deploy 
 function deploy_to_devnet() {
-
-    clear
-
-    start_gfx
-
     # Configuration
-    WALLET_PATH="/panty/prac/p2/p21/solana_wallets/wallet_0.json"
-    PROGRAM_NAME="p21"
-    ANCHOR_TOML="/panty/prac/p2/p21/Anchor.toml"
-    LIB_RS="/panty/prac/p2/p21/programs/${PROGRAM_NAME}/src/lib.rs"
-    DEPLOYER_PUBKEY="6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
-    MIN_SOL_REQUIRED=1.5  # Minimum SOL needed for deployment
+    local WALLET_PATH="/panty/prac/p2/p21/solana_wallets/wallet_0.json"
+    local PROGRAM_NAME="p21"
+    local ANCHOR_TOML="/panty/prac/p2/p21/Anchor.toml"
+    local LIB_RS="/panty/prac/p2/p21/programs/${PROGRAM_NAME}/src/lib.rs"
+    local DEPLOYER_PUBKEY="6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd"
+    local MIN_SOL_REQUIRED=1.5  # Minimum SOL needed for deployment
+    local AIRDROP_ATTEMPTS=0
+    local MAX_AIRDROP_ATTEMPTS=3
 
     # 1. Verify wallet
     echo "🔐 Verifying wallet..."
@@ -146,29 +143,26 @@ function deploy_to_devnet() {
     get_balance() {
         solana balance --url devnet "$DEPLOYER_PUBKEY" | awk '{print $1}'
     }
-    
+
     BALANCE=$(get_balance)
     echo "Current balance: $BALANCE SOL"
-    
-    while (( $(echo "$BALANCE < $MIN_SOL_REQUIRED" | bc -l) )); do
+
+    # Float comparison using awk
+    while awk -v balance="$BALANCE" -v min="$MIN_SOL_REQUIRED" 'BEGIN {exit (balance >= min)}'; do
         echo "⚠️ Low balance ($BALANCE SOL). Requesting airdrop..."
         
-        # Try airdrop with error handling
         if ! solana airdrop 2 --url devnet "$DEPLOYER_PUBKEY"; then
             echo "❌ Airdrop failed. Retrying in 30 seconds..."
             sleep 30
         else
+            echo "✔ Airdrop successful. Waiting for balance update..."
+            sleep 5  # Wait for balance to update
             BALANCE=$(get_balance)
             echo "New balance: $BALANCE SOL"
-            
-            # Sometimes the balance takes a moment to update
-            sleep 5
-            BALANCE=$(get_balance)
         fi
-        
-        # Emergency break after 3 attempts
-        if (( $(echo "$BALANCE < $MIN_SOL_REQUIRED" | bc -l) )) && [ "$AIRDROP_ATTEMPTS" -ge 3 ]; then
-            echo "❌ Failed to get sufficient SOL after 3 attempts"
+
+        if [ "$AIRDROP_ATTEMPTS" -ge "$MAX_AIRDROP_ATTEMPTS" ]; then
+            echo "❌ Failed to get sufficient SOL after $MAX_AIRDROP_ATTEMPTS attempts"
             return 1
         fi
         ((AIRDROP_ATTEMPTS++))
@@ -192,19 +186,19 @@ function deploy_to_devnet() {
 
     # 6. Deploy to devnet
     echo "🚀 Deploying to devnet..."
-    MAX_RETRIES=3
-    ATTEMPT=1
-    while [ $ATTEMPT -le $MAX_RETRIES ]; do
+    local DEPLOY_ATTEMPTS=0
+    local MAX_DEPLOY_ATTEMPTS=3
+    while [ "$DEPLOY_ATTEMPTS" -lt "$MAX_DEPLOY_ATTEMPTS" ]; do
         if anchor deploy --provider.cluster devnet --provider.wallet "$WALLET_PATH"; then
             break
         else
-            echo "⚠️ Deployment attempt $ATTEMPT failed"
-            if [ $ATTEMPT -eq $MAX_RETRIES ]; then
-                echo "❌ Error: Deployment failed after $MAX_RETRIES attempts"
+            ((DEPLOY_ATTEMPTS++))
+            echo "⚠️ Deployment attempt $DEPLOY_ATTEMPTS failed"
+            if [ "$DEPLOY_ATTEMPTS" -eq "$MAX_DEPLOY_ATTEMPTS" ]; then
+                echo "❌ Error: Deployment failed after $MAX_DEPLOY_ATTEMPTS attempts"
                 return 1
             fi
             sleep 10
-            ((ATTEMPT++))
         fi
     done
 
@@ -219,8 +213,7 @@ function deploy_to_devnet() {
     echo "Program ID: $NEW_PROGRAM_ID"
     echo "Deployer: $DEPLOYER_PUBKEY"
     echo "Current balance: $(get_balance) SOL"
-
-    end_gfx
+    return 0
 }
 
 # --- Main Execution ---

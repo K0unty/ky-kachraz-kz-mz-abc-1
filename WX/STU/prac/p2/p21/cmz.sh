@@ -147,7 +147,7 @@ wal_ver() {
 # --- Main Execution ---
 # air_t
 # bal_t
-# anch_t
+anch_t
 # dok_st
 # anch_d
-wal_ver
+# wal_ver

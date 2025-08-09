@@ -121,6 +121,7 @@ dok_st() {
 
 # Anchor deploy 
 function deploy_to_devnet() {
+    start_gfx
     # Configuration
     WALLET_PATH="/panty/prac/p2/p21/solana_wallets/wallet_0.json"
     PROGRAM_NAME="p21"
@@ -179,6 +180,8 @@ function deploy_to_devnet() {
     echo "🎉 Successfully deployed to devnet!"
     echo "Program ID: $NEW_PROGRAM_ID"
     echo "Deployer: $DEPLOYER_PUBKEY"
+
+    end_gfx
 }
 
 

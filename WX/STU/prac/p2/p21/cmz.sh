@@ -216,9 +216,10 @@ function deploy_to_devnet() {
     echo "Program ID: $NEW_PROGRAM_ID"
     echo "Deployer: $DEPLOYER_PUBKEY"
     echo "Current balance: $(get_balance) SOL"
+    end_gfx
+    
     return 0
 
-    end_gfx
 }
 
 # --- Main Execution ---

@@ -122,10 +122,13 @@ dok_st() {
 # Anchor deploy 
 anch_d() {
     start_gfx
+
     hea1 "Anchor deploy"
-    co1="anchor deploy"
-    echo -e "${GREEN}Executing...${co1}${NC}"
+    co1="solana config set --url devnet"
+    co2="solana config get"
+    co3="solana balance"
     eval "$co1"
+
     end_gfx
 }
 

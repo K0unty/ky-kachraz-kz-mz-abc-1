@@ -12,7 +12,7 @@ p21 = "8Re4KgcYHxU2zYb1jJ32a334aytW1bjUAgLyCHUGhqUt"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "solana_wallets/wallet_0.json"
 
 [scripts]

@@ -17,12 +17,11 @@ pub struct Initialize<'info> {
     pub signer: Signer<'info>,
     #[account(
         init,
-        payer = signer,
-        space = 8 + 32,
-        seeds = [b"PissDrink"],
-        bump,
+        payer = signer, 
+        space = 200,
     )]
     pub data_account: Account<'info, PissDrink>,
+    pub system_program: Program<'info, System>,
 }
 
 #[account]

@@ -10,6 +10,7 @@ pub mod t1 {
         msg!("SmellHerFarts: {:?}", ctx.program_id);
 
         let data_account = &mut ctx.accounts.data_account;
+        data_account.LickPussy = LickPussy;
 
         Ok(())
     }

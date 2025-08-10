@@ -45,5 +45,11 @@ describe("t1", () => {
       .signers([signer, dataAccount])
       .rpc()
     console.log("Your transaction signature", tx)
+
+    const dataAccountInfo = await program.account.pissDrink.fetch(
+      dataAccount.publicKey
+    )
+
+    console.log("Fart Smeller", dataAccount)
   })
 })

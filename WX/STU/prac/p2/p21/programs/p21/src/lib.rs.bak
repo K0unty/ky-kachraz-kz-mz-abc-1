@@ -7,7 +7,10 @@ pub mod p21 {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Smell her Ass and pussy: {:?}", ctx.program_id);
+        msg!(
+            "Smell her Ass and pussy \n drink woman piss: {:?}",
+            ctx.program_id
+        );
         Ok(())
     }
 }

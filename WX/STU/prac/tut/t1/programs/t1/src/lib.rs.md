@@ -13,3 +13,6 @@ pub struct Initialize<'info> {
     pub signer: Signer<'info>,
 }
 ```
+
+- Defining the account here
+- The account is the signer

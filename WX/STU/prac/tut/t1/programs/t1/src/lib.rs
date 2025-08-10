@@ -13,4 +13,6 @@ pub mod t1 {
 }
 
 #[derive(Accounts)]
-pub struct Initialize {}
+pub struct Initialize<'info> {
+    pub signer: Signer<'info>,
+}

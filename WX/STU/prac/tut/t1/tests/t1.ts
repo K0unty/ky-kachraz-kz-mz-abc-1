@@ -9,14 +9,26 @@ describe("t1", () => {
   const program = anchor.workspace.t1 as Program<T1>
 
   const signer = anchor.web3.Keypair.generate()
+  const dataAccount = anchor.web3.Keypair.generate()
 
   it("Is initialized!", async () => {
+    program.provider.connection.requestAirdrop(signer.publicKey, 1000000000)
+    await program.provider.connection.confirmTransaction(
+      await program.provider.connection.requestAirdrop(
+        signer.publicKey,
+        1000000000
+      ),
+      "confirmed"
+    )
+
     // Add your test here.
     const tx = await program.methods
       .initialize("Smeling Woman Ass")
       .accounts({
-        signer: program.provider.wallet.publicKey,
+        signer: signer.publicKey,
+        dataAccount: dataAccount.publicKey,
       })
+      .signers([signer, dataAccount])
       .rpc()
     console.log("Your transaction signature", tx)
   })

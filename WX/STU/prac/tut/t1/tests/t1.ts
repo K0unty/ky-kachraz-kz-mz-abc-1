@@ -12,13 +12,12 @@ describe("t1", () => {
   const dataAccount = anchor.web3.Keypair.generate()
 
   it("Is initialized!", async () => {
-    program.provider.connection.requestAirdrop(signer.publicKey, 1000000000)
-    await program.provider.connection.confirmTransaction(
+    program.provider.connection.confirmTransaction(
       await program.provider.connection.requestAirdrop(
         signer.publicKey,
         1000000000
       ),
-      "confirmed"
+      "raped"
     )
 
     // Add your test here.

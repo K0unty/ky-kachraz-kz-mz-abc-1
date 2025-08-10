@@ -78,3 +78,93 @@ $ /panty/prac/tut/t1/node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 't
 
 info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
 ❌ Error: Tests failed
+[H[2J[3J[0;32m
+███████╗ ████████╗  █████╗   █████╗  ██████╗  ████████╗
+██╔════╝ ╚══██╔══╝ ██╔══██╗ ██╔══██╗ ██╔══██╗ ╚══██╔══╝
+███████╗    ██║    ███████║ ███████║ ██████╔╝    ██║   
+╚════██║    ██║    ██╔══██║ ██╔══██║ ██╔══██╗    ██║   
+███████║    ██║    ██║  ██║ ██║  ██║ ██║  ██║    ██║   
+╚══════╝    ╚═╝    ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝    ╚═╝  
+[0m
+[0;36m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[0;35mDeploying Anchor program to devnet[0m
+[0;36m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+🔐 Verifying wallet...
+[0;32mExecuting...
+[0;32msolana-keygen verify "6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd" "/panty/prac/tut/t1/solana_wallets/wallet_0.json" [0m
+Verification for public key: 6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd: Success
+💰 Checking devnet balance...
+[0;32mExecuting...
+[0;32msolana balance --url devnet "6R8jqTmkxkPss4qxak6HKZSgnVqVyKCVVePM5bWn5azd" | awk '{print $1}' [0m
+Current balance: 4.28084716 SOL
+🏗 Building program...
+[0;32mExecuting...
+[0;32manchor build [0m
+[0;32mExecuting...
+[0;32m solana address -k "[0;32m/panty/prac/tut/t1/target/deploy/t1-keypair.json" [0m
+🆔 New program ID: B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD
+[0;32mExecuting...
+[0;32msed -i.bak "s/^t1 = .*/t1 = "B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD"/" "/panty/prac/tut/t1/Anchor.toml" [0m
+[0;32msed -i.bak "s/declare_id!(".*")/declare_id!("B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD")/" "/panty/prac/tut/t1/programs/t1/src/lib.rs" [0m
+✏️ Updating program ID in config files...
+🚀 Deploying to devnet...
+[0;32mExecuting...
+[0;32manchor deploy --provider.cluster devnet --provider.wallet "/panty/prac/tut/t1/solana_wallets/wallet_0.json" [0m
+Deploying cluster: https://api.devnet.solana.com
+Upgrade authority: /panty/prac/tut/t1/solana_wallets/wallet_0.json
+Deploying program "t1"...
+Program path: /panty/prac/tut/t1/target/deploy/t1.so...
+Program Id: B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD
+
+Signature: 5ose3Xj9h3fUVx2vFXNHckJk49bDbmhsKyGwKXuK2X7xC4nKUAJ87v3LHTtPT39UGau9RCQXfWrzvW4wKUhQjg4S
+
+Deploy success
+🧪 Running tests...
+[0;32mExecuting...
+[0;32manchor test --provider.cluster devnet --provider.wallet "/panty/prac/tut/t1/solana_wallets/wallet_0.json" [0m
+Deploying cluster: https://api.devnet.solana.com
+Upgrade authority: /panty/prac/tut/t1/solana_wallets/wallet_0.json
+Deploying program "t1"...
+Program path: /panty/prac/tut/t1/target/deploy/t1.so...
+Program Id: B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD
+
+Signature: 2CnWY9LJjRKXrTT2gNw9hrzHQ7id4e1Vvjffa9xAmWHHFHR8MWUFztP1TCTpeBd9CJQehaGhoES9yUULE9QGTD31
+
+Deploy success
+
+Found a 'test' script in the Anchor.toml. Running it as a test suite!
+
+Running test suite: "/panty/prac/tut/t1/Anchor.toml"
+
+yarn run v1.22.22
+$ /panty/prac/tut/t1/node_modules/.bin/ts-mocha -p ./tsconfig.json -t 1000000 'tests/**/*.ts'
+
+
+  t1
+    1) Is initialized!
+
+
+  0 passing (969ms)
+  1 failing
+
+  1) t1
+       Is initialized!:
+     Simulation failed. 
+Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1. 
+Logs: 
+[
+  "Program B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD invoke [1]",
+  "Program log: Instruction: Initialize",
+  "Program 11111111111111111111111111111111 invoke [2]",
+  "Transfer: insufficient lamports 0, need 2282880",
+  "Program 11111111111111111111111111111111 failed: custom program error: 0x1",
+  "Program B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD consumed 4409 of 200000 compute units",
+  "Program B1mwXwsaY8nPUTJ3coexanu7Dp8nFsmZuFtGL3iWuntD failed: custom program error: 0x1"
+]. 
+Catch the `SendTransactionError` and call `getLogs()` on it for full details.
+  
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+❌ Error: Tests failed

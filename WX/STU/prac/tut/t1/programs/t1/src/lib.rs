@@ -15,4 +15,10 @@ pub mod t1 {
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     pub signer: Signer<'info>,
+    pub data_account:
+}
+
+#[account]
+pub struct PissDrink{
+
 }

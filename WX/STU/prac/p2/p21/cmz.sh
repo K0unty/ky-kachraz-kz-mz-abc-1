@@ -136,6 +136,8 @@ function deploy_to_devnet() {
 
     # 1. Verify wallet
     echo "🔐 Verifying wallet..."
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}solana-keygen verify \"$DEPLOYER_PUBKEY\" \"$WALLET_PATH\" ${NC}"
     if ! solana-keygen verify "$DEPLOYER_PUBKEY" "$WALLET_PATH"; then
         echo "❌ Error: Wallet verification failed"
         return 1
@@ -143,6 +145,8 @@ function deploy_to_devnet() {
 
     # 2. Check and ensure sufficient balance
     echo "💰 Checking devnet balance..."
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}solana balance --url devnet \"$DEPLOYER_PUBKEY\" | awk '{print \$1}' ${NC}"
     get_balance() {
         solana balance --url devnet "$DEPLOYER_PUBKEY" | awk '{print $1}'
     }
@@ -173,16 +177,23 @@ function deploy_to_devnet() {
 
     # 3. Build program
     echo "🏗 Building program..."
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}anchor build ${NC}"
     if ! anchor build; then
         echo "❌ Error: Build failed"
         return 1
     fi
 
     # 4. Get new program ID
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN} solana address -k \"${GREEN}/panty/prac/p2/p21/target/deploy/${PROGRAM_NAME}-keypair.json\" ${NC}"
     NEW_PROGRAM_ID=$(solana address -k "/panty/prac/p2/p21/target/deploy/${PROGRAM_NAME}-keypair.json")
     echo "🆔 New program ID: $NEW_PROGRAM_ID"
 
     # 5. Update program ID in files
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}sed -i.bak \"s/^p21 = .*/p21 = \"$NEW_PROGRAM_ID\"/\" \"$ANCHOR_TOML\" ${NC}"
+    echo -e "${GREEN}sed -i.bak \"s/declare_id!(\".*\")/declare_id!(\"$NEW_PROGRAM_ID\")/\" \"$LIB_RS\" ${NC}"
     echo "✏️ Updating program ID in config files..."
     sed -i.bak "s/^p21 = .*/p21 = \"$NEW_PROGRAM_ID\"/" "$ANCHOR_TOML"
     sed -i.bak "s/declare_id!(\".*\")/declare_id!(\"$NEW_PROGRAM_ID\")/" "$LIB_RS"
@@ -191,6 +202,8 @@ function deploy_to_devnet() {
     echo "🚀 Deploying to devnet..."
     local DEPLOY_ATTEMPTS=0
     local MAX_DEPLOY_ATTEMPTS=3
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}anchor deploy --provider.cluster devnet --provider.wallet \"$WALLET_PATH\" ${NC}"
     while [ "$DEPLOY_ATTEMPTS" -lt "$MAX_DEPLOY_ATTEMPTS" ]; do
         if anchor deploy --provider.cluster devnet --provider.wallet "$WALLET_PATH"; then
             break
@@ -207,6 +220,8 @@ function deploy_to_devnet() {
 
     # 7. Run tests
     echo "🧪 Running tests..."
+    echo -e "${GREEN}Executing..."
+    echo -e "${GREEN}anchor test --provider.cluster devnet --provider.wallet \"$WALLET_PATH\" ${NC}"
     if ! anchor test --provider.cluster devnet --provider.wallet "$WALLET_PATH"; then
         echo "❌ Error: Tests failed"
         return 1

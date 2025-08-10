@@ -17,21 +17,32 @@ describe("t1", () => {
     )
   )
 
+  // Create a new keypair for data account
+  const dataAccount = anchor.web3.Keypair.generate()
+
   it("Is initialized!", async () => {
+    // Fund the data account from the signer to cover rent exemption
+    const rentExemptAmount =
+      await program.provider.connection.getMinimumBalanceForRentExemption(0)
+
+    const transferTx = new anchor.web3.Transaction().add(
+      anchor.web3.SystemProgram.transfer({
+        fromPubkey: signer.publicKey,
+        toPubkey: dataAccount.publicKey,
+        lamports: rentExemptAmount + 1000000, // Extra for fees
+      })
+    )
+
+    await program.provider.sendAndConfirm(transferTx, [signer])
+
     // Add your test here.
     const tx = await program.methods
       .initialize("Test Initialization")
       .accounts({
         signer: signer.publicKey,
-        // Using program derived address for data account to avoid rent issues
-        dataAccount: (
-          await anchor.web3.PublicKey.findProgramAddress(
-            [Buffer.from("data_account")],
-            program.programId
-          )
-        )[0],
+        dataAccount: dataAccount.publicKey,
       })
-      .signers([signer])
+      .signers([signer, dataAccount])
       .rpc()
     console.log("Your transaction signature", tx)
   })
